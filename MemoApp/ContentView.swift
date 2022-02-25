@@ -27,20 +27,23 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
+            } // Listここまで
+            // タイトルはNavigationViewクロージャの最後につける
+            .navigationBarTitle("メモの一覧")
+            //            .toolbar {
+            //                ToolbarItem(placement: .navigationBarTrailing) {
+            //                    EditButton()
+            //                }
+            //                ToolbarItem {
+            //                    Button(action: addItem) {
+            //                        Label("Add Item", systemImage: "plus")
+            //                    }
+            //                }
+            //            } // .toolbarここまで
             Text("Select an item")
-        }
-    }
+        } // NavigationViewここまで
+
+    } // bodyここまで
 
     private func addItem() {
         withAnimation {
@@ -72,7 +75,7 @@ struct ContentView: View {
             }
         }
     }
-}
+} // struct ContentViewここまで
 
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
