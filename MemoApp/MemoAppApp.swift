@@ -13,7 +13,7 @@ struct MemoAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MemoListsView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
