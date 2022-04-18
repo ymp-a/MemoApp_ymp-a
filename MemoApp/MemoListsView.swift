@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MemoListsView: View {
+    // 参照先 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
+    // メモ一覧部分を白背景にする
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -26,15 +28,6 @@ struct MemoListsView: View {
                 .navigationTitle("メモ一覧")
                 .navigationBarTitleDisplayMode(.automatic)
             } // NavigationViewここまで
-
-            //            Button(action: {
-            //                // 処理
-            //            }) {
-            //                Text("ボタン")
-            //                    .frame(width: 35.0, height: 35.0, alignment: .leading)
-            //            }
-            //            .padding(.trailing, 20.0)
-            //            .padding(.bottom, 30.0)
             Text("なし")
                 .font(.title)
         } // ZStack
@@ -46,3 +39,5 @@ struct MemoListsView_Previews: PreviewProvider {
         MemoListsView()
     }
 }
+
+// NEXT　右下にボタンを設置したい
