@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MemoListsView: View {
     // 参照先 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
-    // メモ一覧部分を白背景にする
+    // メモ一覧部分を白背景にするよくわかっていない初期化部分
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -21,7 +21,6 @@ struct MemoListsView: View {
     }
     var body: some View {
         ZStack {
-
             VStack {
                 NavigationView {
                     List {
@@ -32,15 +31,20 @@ struct MemoListsView: View {
             } // VStack
             Text("なし")
                 .font(.title)
+            // 右下のボタンを最前面に設置
             FloatingButton()
         } // ZStack
-    }
+    } // bodyここまで
 } // struct MemoListsViewここまで
 
+// 参考サイト
 // https://dev.classmethod.jp/articles/swiftui_floatingbutton_linkage_textfield/
 // https://capibara1969.com/1800/
-// ボタンの外観
+// 右下ボタン外観
 struct FloatingButton: View {
+    // メモ追加画面の表示切替
+    @State private var isShowSheet: Bool = false
+    // ボタンのグラデーション定数
     let gradientView = AngularGradient(
         // 円錐式グラデーション
         gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
@@ -48,39 +52,33 @@ struct FloatingButton: View {
         angle: .degrees(0))
 
     var body: some View {
-        VStack {  // --- 1
+        VStack {
+            // 上から押し込む
             Spacer()
-            HStack { // --- 2
+            HStack {
+                // 左から押し込む
                 Spacer()
                 Button(action: {
-                    print("Tapped!!") // --- 3
+                    // タップで画面表示させる
+                    self.isShowSheet = true
                 }, label: {
                     Image(systemName: "plus")
                         .foregroundColor(.white)
-                        .font(.system(size: 24)) // --- 4
+                        .font(.system(size: 24))
                 })
                 .frame(width: 60, height: 60)
                 .background(gradientView)
                 .cornerRadius(30.0)
                 .shadow(color: .gray, radius: 3, x: 3, y: 3)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0)) // --- 5
-
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
+                // isShowSheetフラグオンで
+                .sheet(isPresented: self.$isShowSheet) {
+                    // 追加画面をモーダル表示する
+                    MemoAddView()
+                } // .sheetここまで
             } // HStackここまで
         } // VStackここまで
     } // bodyここまで
-    //    /// 背景グラデーションを作成する
-    //    private func backGroundColor() -> LinearGradient {
-    //        // 左上から右下にポイントを設定する。
-    //        let start = UnitPoint.init(x: 1, y: 1) // 左上(始点)
-    //        let end = UnitPoint.init(x: 0.5, y: 0) // 右下(終点)
-    //
-    //        // 「Color」は以前の「UIColor」からの変換もできるぞ！ 助かる。
-    //        let colors = Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)])
-    //
-    //        let gradientColor = LinearGradient(gradient: colors, startPoint: start, endPoint: end)
-    //
-    //        return gradientColor
-    //    }
 } // FlontingButtonここまで
 
 struct MemoListsView_Previews: PreviewProvider {
@@ -88,5 +86,3 @@ struct MemoListsView_Previews: PreviewProvider {
         MemoListsView()
     }
 }
-
-// NEXT　右下にボタンを設置したい
