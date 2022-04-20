@@ -10,8 +10,10 @@ import SwiftUI
 struct MemoAddView: View {
     // メモ内容入力用
     @State private var inputText = ""
+    // メモ追加画面(sheet)の表示有無を管理する状態変数
+    @Binding var isShowSheet: Bool
     // ボタンのグラデーション定数
-    let gradientView = LinearGradient(
+    private let gradientView = LinearGradient(
         // ライナーグラデ：左から右にグラデーション
         gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
         startPoint: .leading,
@@ -21,7 +23,7 @@ struct MemoAddView: View {
         ZStack {
             // Naviと同じ灰色にしたいが良いのが見つからない
             Color(UIColor(red: 239 / 255, green: 239 / 255, blue: 244 / 255, alpha: 1))
-                // 画面全体にセット
+            // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Text("メモの追加")
@@ -66,6 +68,6 @@ struct MemoAddView: View {
 
 struct MemoAddView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoAddView()
+        MemoAddView(isShowSheet: Binding.constant(true))
     }
 }

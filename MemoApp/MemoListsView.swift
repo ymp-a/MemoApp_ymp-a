@@ -45,12 +45,12 @@ struct FloatingButton: View {
     // メモ追加画面の表示切替
     @State private var isShowSheet: Bool = false
     // ボタンのグラデーション定数
-    let gradientView = AngularGradient(
+    private let gradientView = AngularGradient(
         // 円錐式グラデーション
         gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
         center: .center,
         angle: .degrees(0))
-
+    
     var body: some View {
         VStack {
             // 上から押し込む
@@ -73,8 +73,8 @@ struct FloatingButton: View {
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
                 // isShowSheetフラグオンで
                 .sheet(isPresented: self.$isShowSheet) {
-                    // 追加画面をモーダル表示する
-                    MemoAddView()
+                    // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
+                    MemoAddView(isShowSheet: $isShowSheet)
                 } // .sheetここまで
             } // HStackここまで
         } // VStackここまで
