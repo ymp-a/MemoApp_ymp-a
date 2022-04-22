@@ -20,20 +20,22 @@ struct MemoListsView: View {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
     var body: some View {
-        ZStack {
-            VStack {
-                NavigationView {
+        // body直下に記述する
+        NavigationView {
+            ZStack {
+                VStack {
                     List {
+                        // List部分
                     }
                     .navigationTitle("メモ一覧")
                     .navigationBarTitleDisplayMode(.automatic)
-                } // NavigationViewここまで
-            } // VStack
-            Text("なし")
-                .font(.title)
-            // 右下のボタンを最前面に設置
-            FloatingButton()
-        } // ZStack
+                } // VStack
+                Text("なし")
+                    .font(.title)
+                // 右下のボタンを最前面に設置
+                FloatingButton()
+            } // ZStack
+        } // NavigationViewここまで
     } // bodyここまで
 } // struct MemoListsViewここまで
 
@@ -50,7 +52,7 @@ struct FloatingButton: View {
         gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
         center: .center,
         angle: .degrees(0))
-    
+
     var body: some View {
         VStack {
             // 上から押し込む

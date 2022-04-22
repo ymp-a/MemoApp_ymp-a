@@ -21,9 +21,9 @@ struct MemoAddView: View {
 
     var body: some View {
         ZStack {
-            // Naviと同じ灰色にしたいが良いのが見つからない
+            // Naviと同じ灰色にしたいが良いのが見つからない スクショからのスポイト利用しよう
             Color(UIColor(red: 239 / 255, green: 239 / 255, blue: 244 / 255, alpha: 1))
-            // 画面全体にセット
+                // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Text("メモの追加")
