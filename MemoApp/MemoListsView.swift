@@ -6,8 +6,16 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MemoListsView: View {
+    // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
+    @Environment(\.managedObjectContext) var viewContext
+    // データベースよりデータを取得
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
+        animation: .default)
+    var memos: FetchedResults<Memo>
     // 参照先 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
     // メモ一覧部分を白背景にするよくわかっていない初期化部分
     init() {
@@ -19,26 +27,78 @@ struct MemoListsView: View {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
+
     var body: some View {
-        // body直下に記述する
+        // ナビゲーションバー表示、body直下に記述する
         NavigationView {
             ZStack {
                 VStack {
+                    // 取得したデータをリスト表示
                     List {
-                        // List部分
-                    }
+                        ForEach(memos) { memo in
+                            Text("\(memo.context!)\n\(memo.date!, formatter: memoFormatter)")
+                        } // ForEachここまで
+                        // 削除処理イベント
+                        .onDelete(perform: deleteMemos)
+                    } // Listここまで
                     .navigationTitle("メモ一覧")
                     .navigationBarTitleDisplayMode(.automatic)
-                } // VStack
-                Text("なし")
-                    .font(.title)
+                } // VStackここまで
+                // memoリストがなければなしテキストを表示する
+                if memos.isEmpty {
+                    Text("なし").font(.title)
+                }
                 // 右下のボタンを最前面に設置
                 FloatingButton()
-            } // ZStack
+            } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで
+
+    // 追加
+    func addMemo() {
+        withAnimation {
+            // 新規レコード作成
+            let newMemo = Memo(context: viewContext)
+            newMemo.date = Date()
+            // データベース保存
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            } // do catchここまで
+        } // withAnimationここまで
+    } // addMemoここまで
+
+    // 削除
+    private func deleteMemos(offsets: IndexSet) {
+        withAnimation {
+            // レコードの削除
+            offsets.map { memos[$0] }.forEach(viewContext.delete)
+            // データベース保存
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }// do catchここまで
+        } // withAnimationここまで
+    } // addMemoここまで
 } // struct MemoListsViewここまで
 
+// フォーマット出力形式の定義部分
+private let memoFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    // 日本語化できない
+    formatter.locale = Locale(identifier: "ja_JP")
+    formatter.dateStyle = .short
+    formatter.timeStyle = .none
+    return formatter
+}()
 // 参考サイト
 // https://dev.classmethod.jp/articles/swiftui_floatingbutton_linkage_textfield/
 // https://capibara1969.com/1800/
@@ -85,6 +145,6 @@ struct FloatingButton: View {
 
 struct MemoListsView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListsView()
+        MemoListsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MemoAddView: View {
     // メモ内容入力用
@@ -51,6 +52,7 @@ struct MemoAddView: View {
 
                 Button(action: {
                     // 追加ボタンの処理
+                    // inputTextと日付をaddMemo()へ渡したい
                 }) {
                     Text("＋ 追加")
                         .font(.title2)

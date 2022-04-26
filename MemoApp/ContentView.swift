@@ -12,21 +12,21 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var memos: FetchedResults<Memo>
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
+                ForEach(memos) { item in
                     NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        Text("memo at \(item.date!, formatter: itemFormatter)")
                     } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+                        Text(item.date!, formatter: itemFormatter)
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .onDelete(perform: deleteMemos)
             } // Listここまで
             // タイトルはNavigationViewクロージャの最後につける
             .navigationBarTitle("メモの一覧")
@@ -45,10 +45,10 @@ struct ContentView: View {
 
     } // bodyここまで
 
-    private func addItem() {
+    private func addMemo() {
         withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            let newMemo = Memo(context: viewContext)
+            newMemo.date = Date()
 
             do {
                 try viewContext.save()
@@ -61,9 +61,9 @@ struct ContentView: View {
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteMemos(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            offsets.map { memos[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
