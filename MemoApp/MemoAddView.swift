@@ -9,6 +9,13 @@ import SwiftUI
 import CoreData
 
 struct MemoAddView: View {
+    // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
+    @Environment(\.managedObjectContext) var viewContext
+    // データベースよりデータを取得
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
+        animation: .default)
+    var memos: FetchedResults<Memo>
     // メモ内容入力用
     @State private var inputText = ""
     // メモ追加画面(sheet)の表示有無を管理する状態変数
@@ -52,7 +59,9 @@ struct MemoAddView: View {
 
                 Button(action: {
                     // 追加ボタンの処理
-                    // inputTextと日付をaddMemo()へ渡したい
+                    addMemo(inputValue: inputText)
+                    // モーダルを閉じる
+                    isShowSheet = false
                 }) {
                     Text("＋ 追加")
                         .font(.title2)
@@ -66,6 +75,24 @@ struct MemoAddView: View {
             } // VSTACKここまで
         } // ZSTACKここまで
     } // bodyここまで
+    // 追加機能
+    func addMemo(inputValue: String) {
+        withAnimation {
+            // 新規レコード作成
+            let newMemo = Memo(context: viewContext)
+            newMemo.context = inputValue
+            newMemo.date = Date()
+            // データベース保存
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            } // do catchここまで
+        } // withAnimationここまで
+    } // addMemoここまで
 } // MemoAddViewここまで
 
 struct MemoAddView_Previews: PreviewProvider {
