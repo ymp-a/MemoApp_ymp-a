@@ -20,6 +20,8 @@ struct MemoAddView: View {
     @State private var inputText = ""
     // メモ追加画面(sheet)の表示有無を管理する状態変数
     @Binding var isShowSheet: Bool
+    // 日付の変数
+    @State private var selectionDate = Date()
     // ボタンのグラデーション定数
     private let gradientView = LinearGradient(
         // ライナーグラデ：左から右にグラデーション
@@ -48,18 +50,15 @@ struct MemoAddView: View {
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                Button(action: {
-                    // カレンダー遷移したい
-                }) {
-                    Text("Jun 2, 2021")
-                }
-                .buttonStyle(.bordered)
-                .controlSize(.regular)
-                // カレンダーここまで
+
+                // カレンダー選択時に英語日本語表記が混在するのはなぜ？
+                DatePicker("タイトル", selection: $selectionDate, displayedComponents: .date)
+                    // ラベルを消す
+                    .labelsHidden()
 
                 Button(action: {
                     // 追加ボタンの処理
-                    addMemo(inputValue: inputText)
+                    addMemo()
                     // モーダルを閉じる
                     isShowSheet = false
                 }) {
@@ -76,12 +75,13 @@ struct MemoAddView: View {
         } // ZSTACKここまで
     } // bodyここまで
     // 追加機能
-    func addMemo(inputValue: String) {
+    func addMemo() {
         withAnimation {
             // 新規レコード作成
             let newMemo = Memo(context: viewContext)
-            newMemo.context = inputValue
-            newMemo.date = Date()
+            // 直接代入する
+            newMemo.context = inputText
+            newMemo.date = selectionDate
             // データベース保存
             do {
                 try viewContext.save()
