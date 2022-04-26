@@ -15,7 +15,7 @@ struct MemoListsView: View {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
-    var memos: FetchedResults<Memo>
+    private var memos: FetchedResults<Memo>
     // 参照先 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
     // メモ一覧部分を白背景にするよくわかっていない初期化部分
     init() {

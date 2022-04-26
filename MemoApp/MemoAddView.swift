@@ -15,7 +15,7 @@ struct MemoAddView: View {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
-    var memos: FetchedResults<Memo>
+    private var memos: FetchedResults<Memo>
     // メモ内容入力用
     @State private var inputText = ""
     // メモ追加画面(sheet)の表示有無を管理する状態変数
@@ -75,7 +75,7 @@ struct MemoAddView: View {
         } // ZSTACKここまで
     } // bodyここまで
     // 追加機能
-    func addMemo() {
+    private func addMemo() {
         withAnimation {
             // 新規レコード作成
             let newMemo = Memo(context: viewContext)
