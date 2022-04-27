@@ -31,8 +31,8 @@ struct MemoAddView: View {
 
     var body: some View {
         ZStack {
-            // Naviと同じ灰色にしたいが良いのが見つからない スクショからのスポイト利用しよう
-            Color(UIColor(red: 239 / 255, green: 239 / 255, blue: 244 / 255, alpha: 1))
+            // Digital Color Meterで直接RGB値を参照するのが楽
+            Color(UIColor(red: 242 / 255, green: 242 / 255, blue: 247 / 255, alpha: 1))
                 // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
             VStack {

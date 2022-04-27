@@ -48,7 +48,7 @@ struct MemoListsView: View {
                             Text("\(memo.context!)")
                                 .fontWeight(.bold)
                                 .font(.title)
-                            + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                + Text("\n\(memo.date!, formatter: memoFormatter)")
                                 .fontWeight(.bold)
                         } // ForEachここまで
                         // 削除処理イベント
