@@ -30,8 +30,8 @@ struct MemoListsView: View {
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
-        // 日本語化できないままだが課題の表記は.mediumだった
-        formatter.dateStyle = .medium
+        // 日本語化できないままだが課題の表記は.longだった
+        formatter.dateStyle = .long
         formatter.timeStyle = .none
         return formatter
     }
@@ -44,7 +44,12 @@ struct MemoListsView: View {
                     // 取得したデータをリスト表示
                     List {
                         ForEach(memos) { memo in
-                            Text("\(memo.context!)\n\(memo.date!, formatter: memoFormatter)")
+                            // 一部のテキスト装飾は+で繋げればよい
+                            Text("\(memo.context!)")
+                                .fontWeight(.bold)
+                                .font(.title)
+                            + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                .fontWeight(.bold)
                         } // ForEachここまで
                         // 削除処理イベント
                         .onDelete(perform: deleteMemos)
