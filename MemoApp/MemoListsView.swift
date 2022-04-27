@@ -27,6 +27,14 @@ struct MemoListsView: View {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
+    // フォーマット出力形式の定義部分
+    private var memoFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        // 日本語化できないままだが課題の表記は.mediumだった
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }
 
     var body: some View {
         // ナビゲーションバー表示、body直下に記述する
@@ -70,15 +78,6 @@ struct MemoListsView: View {
     } // addMemoここまで
 } // struct MemoListsViewここまで
 
-// フォーマット出力形式の定義部分
-private let memoFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    // 日本語化できない
-    formatter.locale = Locale(identifier: "ja_JP")
-    formatter.dateStyle = .short
-    formatter.timeStyle = .none
-    return formatter
-}()
 // 参考サイト
 // https://dev.classmethod.jp/articles/swiftui_floatingbutton_linkage_textfield/
 // https://capibara1969.com/1800/
