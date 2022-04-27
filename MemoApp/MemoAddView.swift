@@ -51,10 +51,13 @@ struct MemoAddView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
 
-                // カレンダー選択時に英語日本語表記が混在するのはなぜ？
+                // カレンダー選択時にshortとmedium表記が混在するのはなぜ？->実機検証ではmediumのみになってた
                 DatePicker("タイトル", selection: $selectionDate, displayedComponents: .date)
                     // ラベルを消す
                     .labelsHidden()
+                    // テキスト色の変更セット
+                    .colorInvert()
+                    .colorMultiply(.blue)
 
                 Button(action: {
                     // 追加ボタンの処理
