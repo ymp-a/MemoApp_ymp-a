@@ -102,7 +102,7 @@ struct FloatingButton: View {
                 Spacer()
                 Button(action: {
                     // タップで画面表示させる
-                    self.isShowSheet = true
+                    isShowSheet.toggle()
                 }, label: {
                     Image(systemName: "plus")
                         .foregroundColor(.white)

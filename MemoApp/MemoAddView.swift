@@ -60,7 +60,7 @@ struct MemoAddView: View {
                     // 追加ボタンの処理
                     addMemo()
                     // モーダルを閉じる
-                    isShowSheet = false
+                    isShowSheet.toggle()
                 }) {
                     Text("＋ 追加")
                         .font(.title2)
