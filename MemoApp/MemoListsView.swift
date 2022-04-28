@@ -13,6 +13,7 @@ struct MemoListsView: View {
     @Environment(\.managedObjectContext) var viewContext
     // データベースよりデータを取得
     @FetchRequest(
+        // CoreDataの並び順、key値、アニメーションを設定してる
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
     private var memos: FetchedResults<Memo>
@@ -30,11 +31,13 @@ struct MemoListsView: View {
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
-        // 日本語化できないままだが課題の表記は.longだった
+        // .Dateの表示をセット
         formatter.dateStyle = .long
-        formatter.timeStyle = .none
+        formatter.timeStyle = .full
         return formatter
     }
+    // メモ追加画面の表示切替
+    @State private var isShowEditSheet: Bool = false
 
     var body: some View {
         // ナビゲーションバー表示、body直下に記述する
@@ -44,12 +47,20 @@ struct MemoListsView: View {
                     // 取得したデータをリスト表示
                     List {
                         ForEach(memos) { memo in
-                            // 一部のテキスト装飾は+で繋げればよい
-                            Text("\(memo.context!)")
-                                .fontWeight(.bold)
-                                .font(.title)
-                                + Text("\n\(memo.date!, formatter: memoFormatter)")
-                                .fontWeight(.bold)
+                            HStack {
+                                // 一部のテキスト装飾は+で繋げればよい
+                                Text("\(memo.context!)")
+                                    .fontWeight(.bold)
+                                    .font(.title)
+                                    + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                    .fontWeight(.bold)
+                                Spacer()
+                            } // HStackここまで
+                            // checkedフラグを変更する
+                            //                            .contentShape(Rectangle())      // 追加
+                            //                            .onTapGesture {
+                            //                                isShowEditSheet.toggle()
+                            //                            } // onTapGestureここまで
                         } // ForEachここまで
                         // 削除処理イベント
                         .onDelete(perform: deleteMemos)
@@ -63,6 +74,11 @@ struct MemoListsView: View {
                 }
                 // 右下のボタンを最前面に設置
                 FloatingButton()
+                //                    // isShowEditSheetフラグオンで
+                //                    .sheet(isPresented: self.$isShowEditSheet) {
+                //                        // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
+                //                        MemoEditView(isShowEditSheet: $isShowEditSheet)
+                //                    } // .sheetここまで
             } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで
@@ -88,3 +104,6 @@ struct MemoListsView_Previews: PreviewProvider {
         MemoListsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
+
+// ダークモード実装したい
+// EditModeにmemoを渡したい

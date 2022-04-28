@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A523FF4281967CB00E55C83 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A523FF3281967CB00E55C83 /* FloatingButton.swift */; };
+		2A523FF6281AA9F200E55C83 /* MemoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A523FF5281AA9F200E55C83 /* MemoEditView.swift */; };
 		2A600D8E280EE47F0031F8FE /* MemoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A600D8D280EE47F0031F8FE /* MemoAddView.swift */; };
 		2A8978F227C7921D0018FE7B /* MemoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8978F127C7921D0018FE7B /* MemoAppApp.swift */; };
 		2A8978F627C7921E0018FE7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A8978F527C7921E0018FE7B /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		2A523FF3281967CB00E55C83 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
+		2A523FF5281AA9F200E55C83 /* MemoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditView.swift; sourceTree = "<group>"; };
 		2A600D8D280EE47F0031F8FE /* MemoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoAddView.swift; sourceTree = "<group>"; };
 		2A8978EE27C7921D0018FE7B /* MemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A8978F127C7921D0018FE7B /* MemoAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoAppApp.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				2A89790527C901750018FE7B /* MemoListsView.swift */,
 				2A523FF3281967CB00E55C83 /* FloatingButton.swift */,
 				2A600D8D280EE47F0031F8FE /* MemoAddView.swift */,
+				2A523FF5281AA9F200E55C83 /* MemoEditView.swift */,
 				2A8978FC27C7921E0018FE7B /* MemoApp.xcdatamodeld */,
 				2A8978F727C7921E0018FE7B /* Preview Content */,
 			);
@@ -170,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A523FF6281AA9F200E55C83 /* MemoEditView.swift in Sources */,
 				2A8978FB27C7921E0018FE7B /* Persistence.swift in Sources */,
 				2A600D8E280EE47F0031F8FE /* MemoAddView.swift in Sources */,
 				2A523FF4281967CB00E55C83 /* FloatingButton.swift in Sources */,

@@ -11,11 +11,11 @@ import CoreData
 struct MemoAddView: View {
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
-    // データベースよりデータを取得
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
-        animation: .default)
-    private var memos: FetchedResults<Memo>
+    //    // データベースよりデータを取得
+    //    @FetchRequest(
+    //        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
+    //        animation: .default)
+    //    private var memos: FetchedResults<Memo>
     // メモ内容入力用
     @State private var inputText = ""
     // メモ追加画面(sheet)の表示有無を管理する状態変数
@@ -31,7 +31,7 @@ struct MemoAddView: View {
 
     var body: some View {
         ZStack {
-            // Digital Color Meterで直接RGB値を参照するのが楽
+            // Digital Color Meterで直接RGB値を参照するのが楽// extention
             Color(UIColor(red: 242 / 255, green: 242 / 255, blue: 247 / 255, alpha: 1))
                 // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
