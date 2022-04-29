@@ -9,13 +9,15 @@ import SwiftUI
 import CoreData
 
 struct MemoAddView: View {
+    // フォーカスが当たるTextFieldを判断するためのenumを作成します。
+    // @FocusStateの定義にもある通り、ValueはHashableである必要がある為、準拠しています。
+    enum Field: Hashable {
+        case add
+    }
+    // @FocusStateを付与した値をnilにするとキーボードが閉じてくれるのでオプショナルにしています。
+    @FocusState private var focusedField: Field?
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
-    //    // データベースよりデータを取得
-    //    @FetchRequest(
-    //        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
-    //        animation: .default)
-    //    private var memos: FetchedResults<Memo>
     // メモ内容入力用
     @State private var inputText = ""
     // メモ追加画面(sheet)の表示有無を管理する状態変数
@@ -42,6 +44,12 @@ struct MemoAddView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 TextField("", text: $inputText)
+                    .font(.title)                                        .border(.gray)
+                    // 第一引数には@FocusStateの値を渡し、第二引数には今回はどのfocusedFieldを指しているのかを渡しています。
+                    .focused($focusedField, equals: .add)
+                    .onTapGesture {
+                        focusedField = .add
+                    }
                 Spacer()
                 // 区切り線　(VStack外では縦線になる)
                 Divider()
@@ -75,6 +83,15 @@ struct MemoAddView: View {
                         .padding()
                 } // 追加ボタンここまで
             } // VSTACKここまで
+            // タップフォーカス内の範囲を設定しているこれだと上下部セーフエリアまで範囲が広がってViewが崩れた
+            //            .frame(width: UIScreen.main.bounds.width,
+            //                   height: UIScreen.main.bounds.height)
+            // 範囲内ならタップでできるようになっている
+            .contentShape(RoundedRectangle(cornerRadius: 10))
+            // タップした時の処理
+            .onTapGesture {
+                focusedField = nil
+            } // onTapGesture
         } // ZSTACKここまで
     } // bodyここまで
     // 追加機能
