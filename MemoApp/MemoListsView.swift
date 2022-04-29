@@ -17,17 +17,7 @@ struct MemoListsView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
     private var memos: FetchedResults<Memo>
-    // 参照先 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
-    // メモ一覧部分を白背景にするよくわかっていない初期化部分
-    init() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-    }
+    // 参照:ナビバーの色変更 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -52,7 +42,7 @@ struct MemoListsView: View {
                                 Text("\(memo.context!)")
                                     .fontWeight(.bold)
                                     .font(.title)
-                                    + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                + Text("\n\(memo.date!, formatter: memoFormatter)")
                                     .fontWeight(.bold)
                                 Spacer()
                             } // HStackここまで
