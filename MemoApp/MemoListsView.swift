@@ -17,6 +17,8 @@ struct MemoListsView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
     private var memos: FetchedResults<Memo>
+    @State var memoText: String = ""
+    @State var memoDate = Date()
     // 参照:ナビバーの色変更 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
@@ -42,15 +44,17 @@ struct MemoListsView: View {
                                 Text("\(memo.context!)")
                                     .fontWeight(.bold)
                                     .font(.title)
-                                + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                    + Text("\n\(memo.date!, formatter: memoFormatter)")
                                     .fontWeight(.bold)
                                 Spacer()
                             } // HStackここまで
-                            // checkedフラグを変更する
-                            //                            .contentShape(Rectangle())      // 追加
-                            //                            .onTapGesture {
-                            //                                isShowEditSheet.toggle()
-                            //                            } // onTapGestureここまで
+                            //　checkedフラグを変更する
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                isShowEditSheet.toggle()
+                                memoText = memo.context!
+                                memoDate = memo.date!
+                            } // onTapGestureここまで
                         } // ForEachここまで
                         // 削除処理イベント
                         .onDelete(perform: deleteMemos)
@@ -64,11 +68,11 @@ struct MemoListsView: View {
                 }
                 // 右下のボタンを最前面に設置
                 FloatingButton()
-                //                    // isShowEditSheetフラグオンで
-                //                    .sheet(isPresented: self.$isShowEditSheet) {
-                //                        // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
-                //                        MemoEditView(isShowEditSheet: $isShowEditSheet)
-                //                    } // .sheetここまで
+                    // isShowEditSheetフラグオンで
+                    .sheet(isPresented: self.$isShowEditSheet) {
+                        // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
+                        MemoEditView(memoText: $memoText, memoDate: $memoDate, isShowEditSheet: $isShowEditSheet)
+                    } // .sheetここまで
             } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで
@@ -95,5 +99,4 @@ struct MemoListsView_Previews: PreviewProvider {
     }
 }
 
-// ダークモード実装したい
-// EditModeにmemoを渡したい
+// EditModeにmemo.Dateを渡したい
