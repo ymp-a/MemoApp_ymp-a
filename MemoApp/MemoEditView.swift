@@ -40,8 +40,8 @@ struct MemoEditView: View {
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                //                TextField("", text: $editText)
-                Text(memoText)
+                // テキストフィールド
+                TextField("", text: $memoText)
                 Spacer()
                 // 区切り線　(VStack外では縦線になる)
                 Divider()
