@@ -20,6 +20,7 @@ struct MemoListsView: View {
     @State var memoText: String = ""
     @State var memoDate = Date()
     // 参照:ナビバーの色変更 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
+    @State var editmemo: FetchedResults<Memo>.Element
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -52,8 +53,9 @@ struct MemoListsView: View {
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 isShowEditSheet.toggle()
-                                memoText = memo.context!
-                                memoDate = memo.date!
+                                editmemo = memo
+//                                memoText = memo.context!
+//                                memoDate = memo.date!
                             } // onTapGestureここまで
                         } // ForEachここまで
                         // 削除処理イベント

@@ -11,12 +11,13 @@ import CoreData
 struct MemoEditView: View {
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
+    //    @ObservedObject var memo: Memo
     // データベースよりデータを取得
-    @FetchRequest(
-        // CoreDataの並び順、key値、アニメーションを設定してる
-        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
-        animation: .default)
-    private var memos: FetchedResults<Memo>
+    //    @FetchRequest(
+    //        // CoreDataの並び順、key値、アニメーションを設定してる
+    //        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
+    //        animation: .default)
+    //    private var memos: FetchedResults<Memo>
     @Binding var memoText: String
     @Binding var memoDate: Date
     // メモ追加画面(sheet)の表示有無を管理する状態変数
@@ -28,6 +29,7 @@ struct MemoEditView: View {
         gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
         startPoint: .leading,
         endPoint: .trailing)
+
     var body: some View {
         ZStack {
             // Digital Color Meterで直接RGB値を参照するのが楽
@@ -41,7 +43,7 @@ struct MemoEditView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 // テキストフィールド
-                TextField("", text: $memoText)
+                TextField("Input here", text: $memoText)
                 Spacer()
                 // 区切り線　(VStack外では縦線になる)
                 Divider()
@@ -61,7 +63,7 @@ struct MemoEditView: View {
 
                 Button(action: {
                     // 追加ボタンの処理
-                    //                    editMemo()
+                    editMemo()
                     // モーダルを閉じる
                     isShowEditSheet.toggle()
                 }) {
@@ -80,22 +82,23 @@ struct MemoEditView: View {
 
     // 変更機能
 
-    //    private func editMemo() {
-    //        // 新規レコード作成
-    //        let editMemo = Memo(context: viewContext)
-    //        // 直接代入する
-    //        editMemo.context = editText
-    //        editMemo.date = selectionDate
-    //        // データベース保存
-    //        do {
-    //            try viewContext.save()
-    //        } catch {
-    //            // Replace this implementation with code to handle the error appropriately.
-    //            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-    //            let nsError = error as NSError
-    //            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-    //        } // do catchここまで
-    //    } // editMemoここまで
+    private func editMemo() {
+        @ObservedObject var memo = Memo(context: viewContext)
+        // 新規レコード作成
+        //        let updataMemo = Memo(context: viewContext)
+        // 直接代入する
+        memo.context = memoText
+        memo.date = memoDate
+        // データベース保存
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        } // do catchここまで
+    } // editMemoここまで
 } // MemoEditViewここまで
 
 struct MemoEditView_Previews: PreviewProvider {
