@@ -17,10 +17,10 @@ struct MemoListsView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
     private var memos: FetchedResults<Memo>
-    // 参照:ナビバーの色変更 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
-    // タップした行の情報を渡す
-    @State var editMemo: FetchedResults<Memo>.Element
-
+    
+    // タップした行の情報を渡す イニシャライズ必要？
+    @State var editMemo: FetchedResults<Memo>.Element?
+    
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -31,7 +31,7 @@ struct MemoListsView: View {
     }
     // メモ追加画面の表示切替
     @State private var isShowEditSheet: Bool = false
-
+    
     var body: some View {
         // ナビゲーションバー表示、body直下に記述する
         NavigationView {
@@ -45,7 +45,7 @@ struct MemoListsView: View {
                                 Text("\(memo.context!)")
                                     .fontWeight(.bold)
                                     .font(.title)
-                                    + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                + Text("\n\(memo.date!, formatter: memoFormatter)")
                                     .fontWeight(.bold)
                                 Spacer()
                             } // HStackここまで
@@ -70,15 +70,15 @@ struct MemoListsView: View {
                 }
                 // 右下のボタンを最前面に設置
                 FloatingButton()
-                    // isShowEditSheetフラグオンで
+                // isShowEditSheetフラグオンで
                     .sheet(isPresented: self.$isShowEditSheet) {
                         // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
-                        MemoEditView(editMemo: $editMemo, isShowEditSheet: $isShowEditSheet)
+                        MemoEditView(editMemo: Binding($editMemo)!, isShowEditSheet: $isShowEditSheet)
                     } // .sheetここまで
             } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで
-
+    
     // 削除
     private func deleteMemos(offsets: IndexSet) {
         // レコードの削除
@@ -103,9 +103,9 @@ struct MemoListsView_Previews: PreviewProvider {
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
     static var memos: FetchedResults<Memo>
-
+    
     //    static var editMemo: FetchedResults<Memo>.Element = memos[$0]
-
+    
     static var previews: some View {
         MemoListsView(editMemo: memos[0]).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }

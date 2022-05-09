@@ -18,22 +18,45 @@ struct MemoEditView: View {
         animation: .default)
     private var memo: FetchedResults<Memo>
     // 1行のデータを受信する
-    @Binding var editMemo: FetchedResults<Memo>.Element
+    var editMemo: FetchedResults<Memo>.Element
     // メモ追加画面(sheet)の表示有無を管理する状態変数
     @Binding var isShowEditSheet: Bool
-
+    
+    @State private var context: String
+    @State private var editdate: Date
+    // Binding<Bool>の代入
+    // https://www.2nd-walker.com/2020/03/13/swiftui-assign-binding-to-atbinding/
+    
+    init(editMemo: FetchedResults<Memo>.Element?, isShowEditSheet: Binding<Bool>) {
+        // 1行のデータをnilチェック
+        if let editMemo = editMemo {
+            // メモ内容をnilチェック
+            context = (editMemo.context) ?? ""
+            // 時間をnilチェック
+            editdate = (editMemo.date)!
+            //　self.editMemoが21行目のeditMemoのこと、初期化後に代入している
+            self.editMemo = editMemo
+        } else {
+            // プレビュー用
+            self.context = "testmemo"
+            self.editdate = Date()
+        }
+        
+        self._isShowEditSheet = isShowEditSheet
+    }
+    
     // ボタンのグラデーション定数
     private let gradientView = LinearGradient(
         // ライナーグラデ：左から右にグラデーション
         gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
         startPoint: .leading,
         endPoint: .trailing)
-
+    
     var body: some View {
         ZStack {
             // Digital Color Meterで直接RGB値を参照するのが楽
             Color("backColor")
-                // 画面全体にセット
+            // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Text("メモの編集")
@@ -42,7 +65,7 @@ struct MemoEditView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 // テキストフィールド
-                TextField("Input here", text: Binding($editMemo.context)!)
+                TextField("Input here", text: $context)
                 Spacer()
                 // 区切り線　(VStack外では縦線になる)
                 Divider()
@@ -51,15 +74,15 @@ struct MemoEditView: View {
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-
+                
                 // カレンダー選択時にshortとmedium表記が混在するのはなぜ？->実機検証ではmediumのみになってた
-                DatePicker("タイトル", selection: Binding($editMemo.date)!, displayedComponents: .date)
-                    // ラベルを消す
+                DatePicker("タイトル", selection: $editdate, displayedComponents: .date)
+                // ラベルを消す
                     .labelsHidden()
-                    // テキスト色の変更セット
+                // テキスト色の変更セット
                     .colorInvert()
                     .colorMultiply(.blue)
-
+                
                 Button(action: {
                     // 変更ボタンの処理
                     updateMemo()
@@ -79,17 +102,16 @@ struct MemoEditView: View {
         } // ZSTACKここまで
         // View初回表示前になんか処理いる？
         .onAppear {
-
+            
         } // onAppearここまで
     } // bodyここまで
-
+    
     // 変更機能
-
+    
     private func updateMemo() {
-
         // 直接入力だからそのままでいい？
-        //        Binding($editMemo.context)! = Binding($editMemo.context)!
-        //        Binding($editMemo.date)! = Binding($editMemo.date)!
+        editMemo.context = context
+        editMemo.date = editdate
         // データベース保存
         do {
             try viewContext.save()
@@ -103,11 +125,9 @@ struct MemoEditView: View {
 } // MemoEditViewここまで
 
 // プレビューでeditMemoの具体的な値の指定方法がわからないのでとりあえずコメントアウトする
-// struct MemoEditView_Previews: PreviewProvider {
-//    @State static var editMemo: FetchedResults<Memo>.Element
-//
-//
-//    static var previews: some View {
-//        MemoEditView(editMemo: Binding.editMemo,  isShowEditSheet: Binding.constant(true))
-//    }
-// }
+struct MemoEditView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        MemoEditView(editMemo: nil, isShowEditSheet: Binding.constant(true))
+    }
+}
