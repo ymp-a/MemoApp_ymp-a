@@ -17,16 +17,16 @@ struct MemoListsView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
     private var memos: FetchedResults<Memo>
-    @State var memoText: String = ""
-    @State var memoDate = Date()
     // 参照:ナビバーの色変更 https://blog.personal-factory.com/2020/05/04/customize-navigationbar-in-ios13/
-    @State var editmemo: FetchedResults<Memo>.Element
+    // タップした行の情報を渡す
+    @State var editMemo: FetchedResults<Memo>.Element
+
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
         // .Dateの表示をセット
         formatter.dateStyle = .long
-        formatter.timeStyle = .full
+        formatter.timeStyle = .long
         return formatter
     }
     // メモ追加画面の表示切替
@@ -53,9 +53,9 @@ struct MemoListsView: View {
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 isShowEditSheet.toggle()
-                                editmemo = memo
-//                                memoText = memo.context!
-//                                memoDate = memo.date!
+                                editMemo = memo
+                                //                                memoText = memo.context!
+                                //                                memoDate = memo.date!
                             } // onTapGestureここまで
                         } // ForEachここまで
                         // 削除処理イベント
@@ -73,7 +73,7 @@ struct MemoListsView: View {
                     // isShowEditSheetフラグオンで
                     .sheet(isPresented: self.$isShowEditSheet) {
                         // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
-                        MemoEditView(memoText: $memoText, memoDate: $memoDate, isShowEditSheet: $isShowEditSheet)
+                        MemoEditView(editMemo: $editMemo, isShowEditSheet: $isShowEditSheet)
                     } // .sheetここまで
             } // ZStackここまで
         } // NavigationViewここまで
@@ -96,8 +96,18 @@ struct MemoListsView: View {
 } // struct MemoListsViewここまで
 
 struct MemoListsView_Previews: PreviewProvider {
+    @Environment(\.managedObjectContext) var viewContext
+    // データベースよりデータを取得
+    @FetchRequest(
+        // CoreDataの並び順、key値、アニメーションを設定してる
+        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
+        animation: .default)
+    static var memos: FetchedResults<Memo>
+
+    //    static var editMemo: FetchedResults<Memo>.Element = memos[$0]
+
     static var previews: some View {
-        MemoListsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        MemoListsView(editMemo: memos[0]).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 

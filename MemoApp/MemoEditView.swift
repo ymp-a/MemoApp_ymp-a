@@ -11,15 +11,14 @@ import CoreData
 struct MemoEditView: View {
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
-    //    @ObservedObject var memo: Memo
     // データベースよりデータを取得
-    //    @FetchRequest(
-    //        // CoreDataの並び順、key値、アニメーションを設定してる
-    //        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
-    //        animation: .default)
-    //    private var memos: FetchedResults<Memo>
-    @Binding var memoText: String
-    @Binding var memoDate: Date
+    @FetchRequest(
+        // CoreDataの並び順、key値、アニメーションを設定してる
+        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
+        animation: .default)
+    private var memo: FetchedResults<Memo>
+    // 1行のデータを受信する
+    @Binding var editMemo: FetchedResults<Memo>.Element
     // メモ追加画面(sheet)の表示有無を管理する状態変数
     @Binding var isShowEditSheet: Bool
 
@@ -43,7 +42,7 @@ struct MemoEditView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 // テキストフィールド
-                TextField("Input here", text: $memoText)
+                TextField("Input here", text: Binding($editMemo.context)!)
                 Spacer()
                 // 区切り線　(VStack外では縦線になる)
                 Divider()
@@ -54,7 +53,7 @@ struct MemoEditView: View {
                     .padding()
 
                 // カレンダー選択時にshortとmedium表記が混在するのはなぜ？->実機検証ではmediumのみになってた
-                DatePicker("タイトル", selection: $memoDate, displayedComponents: .date)
+                DatePicker("タイトル", selection: Binding($editMemo.date)!, displayedComponents: .date)
                     // ラベルを消す
                     .labelsHidden()
                     // テキスト色の変更セット
@@ -62,8 +61,8 @@ struct MemoEditView: View {
                     .colorMultiply(.blue)
 
                 Button(action: {
-                    // 追加ボタンの処理
-                    editMemo()
+                    // 変更ボタンの処理
+                    updateMemo()
                     // モーダルを閉じる
                     isShowEditSheet.toggle()
                 }) {
@@ -78,17 +77,19 @@ struct MemoEditView: View {
                 } // 追加ボタンここまで
             } // VSTACKここまで
         } // ZSTACKここまで
+        // View初回表示前になんか処理いる？
+        .onAppear {
+
+        } // onAppearここまで
     } // bodyここまで
 
     // 変更機能
 
-    private func editMemo() {
-        @ObservedObject var memo = Memo(context: viewContext)
-        // 新規レコード作成
-        //        let updataMemo = Memo(context: viewContext)
-        // 直接代入する
-        memo.context = memoText
-        memo.date = memoDate
+    private func updateMemo() {
+
+        // 直接入力だからそのままでいい？
+        //        Binding($editMemo.context)! = Binding($editMemo.context)!
+        //        Binding($editMemo.date)! = Binding($editMemo.date)!
         // データベース保存
         do {
             try viewContext.save()
@@ -101,10 +102,12 @@ struct MemoEditView: View {
     } // editMemoここまで
 } // MemoEditViewここまで
 
-struct MemoEditView_Previews: PreviewProvider {
-    static let birthDate = Date()
-
-    static var previews: some View {
-        MemoEditView(memoText: Binding.constant("testtest"), memoDate: Binding.constant(birthDate), isShowEditSheet: Binding.constant(true))
-    }
-}
+// プレビューでeditMemoの具体的な値の指定方法がわからないのでとりあえずコメントアウトする
+// struct MemoEditView_Previews: PreviewProvider {
+//    @State static var editMemo: FetchedResults<Memo>.Element
+//
+//
+//    static var previews: some View {
+//        MemoEditView(editMemo: Binding.editMemo,  isShowEditSheet: Binding.constant(true))
+//    }
+// }
