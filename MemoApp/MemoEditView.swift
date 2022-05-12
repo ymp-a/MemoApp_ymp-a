@@ -11,40 +11,28 @@ import CoreData
 struct MemoEditView: View {
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
-    // データベースよりデータを取得
-    @FetchRequest(
-        // CoreDataの並び順、key値、アニメーションを設定してる
-        sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
-        animation: .default) private var memos: FetchedResults<Memo>
-    // 1行のデータを受信する
-    var editMemo: FetchedResults<Memo>.Element?
-    // メモ追加画面(sheet)の表示有無を管理する状態変数
-    @Binding var isShowEditSheet: Bool
+    // 行データを受信する
+    var editMemo: Memo?
 
-    @State private var context: String = ""
-    @State private var editDate: Date = Date()
-    // Binding<Bool>の代入
-    // https://www.2nd-walker.com/2020/03/13/swiftui-assign-binding-to-atbinding/
+    @State private var context: String
+    @State private var editDate: Date
 
-    init(editMemo: FetchedResults<Memo>.Element?, isShowEditSheet: Binding<Bool>) {
-        self._isShowEditSheet = isShowEditSheet
+    init(editMemo: Memo?) {
         // 1行のデータをnilチェック
         if let editMemo = editMemo {
-            // メモ内容をnilチェック
-            context = (editMemo.context ?? "")
-            // 時間をnilチェック
-            editDate = (editMemo.date!)
             //　self.editMemoが21行目のeditMemoのこと、初期化後に代入している
             self.editMemo = editMemo
+            // メモ内容をアンラップして代入
+            self._context = State(initialValue: editMemo.context!)
+            // 時間をアンラップして代入
+            self._editDate = State(initialValue: editMemo.date!)
+
         } else {
             // プレビュー用
-            self.context = "testmemo"
-            self.editDate = Date()
-
-            //            self.editMemo = FetchedResults(entity: Memo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)], animation: .default)
+            self._context = State(initialValue: "testmemo")
+            self._editDate = State(initialValue: Date())
         }
-
-    }
+    } // initここまで
 
     // ボタンのグラデーション定数
     private let gradientView = LinearGradient(
@@ -88,7 +76,7 @@ struct MemoEditView: View {
                     // 変更ボタンの処理
                     updateMemo()
                     // モーダルを閉じる
-                    isShowEditSheet.toggle()
+                    //                    isShowEditSheet.toggle()
                 }) {
                     Text("＋ 変更")
                         .font(.title2)
@@ -123,6 +111,6 @@ struct MemoEditView: View {
 // プレビューでeditMemoの具体的な値の指定方法がわからないのでとりあえずコメントアウトする
 struct MemoEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoEditView(editMemo: nil, isShowEditSheet: Binding.constant(true))
+        MemoEditView(editMemo: nil)
     }
 }

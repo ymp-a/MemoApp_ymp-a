@@ -18,7 +18,7 @@ struct MemoListsView: View {
         animation: .default)
     private var memos: FetchedResults<Memo>
     // タップした行の情報を渡す
-    @State var editMemo: FetchedResults<Memo>.Element?
+    @State var editMemo: Memo?
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -27,8 +27,6 @@ struct MemoListsView: View {
         formatter.timeStyle = .long
         return formatter
     }
-    // メモ追加画面の表示切替
-    @State private var isShowEditSheet: Bool = false
 
     var body: some View {
         // ナビゲーションバー表示、body直下に記述する
@@ -38,24 +36,20 @@ struct MemoListsView: View {
                     // 取得したデータをリスト表示
                     List {
                         ForEach(memos) { memo in
-                            HStack {
-                                // 一部のテキスト装飾は+で繋げればよい
-                                Text("\(memo.context!)")
-                                    .fontWeight(.bold)
-                                    .font(.title)
-                                    + Text("\n\(memo.date!, formatter: memoFormatter)")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            } // HStackここまで
-                            //　checkedフラグを変更する
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                isShowEditSheet.toggle()
-                                // 1行の情報を格納する
-                                editMemo = memo
-                                // memoText = memo.context!
-                                // memoDate = memo.date!
-                            } // onTapGestureここまで
+                            // 行毎に編集Viewとmemo情報を生成している
+                            NavigationLink(destination: MemoEditView(editMemo: memo)) {
+                                HStack {
+                                    // 一部のテキスト装飾は+で繋げればよい
+                                    Text("\(memo.context!)")
+                                        .fontWeight(.bold)
+                                        .font(.title)
+                                        + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                } // HStackここまで
+                                //　checkedフラグを変更する
+                                .contentShape(Rectangle())
+                            } // NavigationLinkここまで
                         } // ForEachここまで
                         // 削除処理イベント
                         .onDelete(perform: deleteMemos)
@@ -69,13 +63,12 @@ struct MemoListsView: View {
                 }
                 // 右下のボタンを最前面に設置
                 FloatingButton()
-                    // isShowEditSheetフラグオンで
-                    .sheet(isPresented: self.$isShowEditSheet) {
-                        // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
-                        // ここエラーがわからない
-                        MemoEditView(editMemo:
-                                        Binding($editMemo)!, isShowEditSheet: $isShowEditSheet)
-                    } // .sheetここまで
+                // isShowEditSheetフラグオンで
+                //                    .sheet(isPresented: self.$isShowEditSheet) {
+                //                        // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
+                //                        // ここエラーがわからない
+                ////                        MemoEditView(editMemo: editMemo, isShowEditSheet: $isShowEditSheet)
+                //                    } // .sheetここまで
             } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで
@@ -108,8 +101,6 @@ struct MemoListsView_Previews: PreviewProvider {
     //    static var editMemo: FetchedResults<Memo>.Element = memos[$0]
 
     static var previews: some View {
-        MemoListsView(editMemo: memos[0]).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        MemoListsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
-
-// EditModeにmemo.Dateを渡したい
