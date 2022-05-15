@@ -17,6 +17,7 @@
 		2A8978FE27C7921E0018FE7B /* MemoApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2A8978FC27C7921E0018FE7B /* MemoApp.xcdatamodeld */; };
 		2A89790627C901750018FE7B /* MemoListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89790527C901750018FE7B /* MemoListsView.swift */; };
 		2AF6F288282FF98800AE2967 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF6F287282FF98800AE2967 /* HomeViewModel.swift */; };
+		2AF6F28A28314B4E00AE2967 /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF6F28928314B4E00AE2967 /* ColorModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		2A8978FD27C7921E0018FE7B /* MemoApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoApp.xcdatamodel; sourceTree = "<group>"; };
 		2A89790527C901750018FE7B /* MemoListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListsView.swift; sourceTree = "<group>"; };
 		2AF6F287282FF98800AE2967 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		2AF6F28928314B4E00AE2967 /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		2AF6F286282FF94100AE2967 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2AF6F28928314B4E00AE2967 /* ColorModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			files = (
 				2A523FF6281AA9F200E55C83 /* MemoEditView.swift in Sources */,
 				2A8978FB27C7921E0018FE7B /* Persistence.swift in Sources */,
+				2AF6F28A28314B4E00AE2967 /* ColorModel.swift in Sources */,
 				2A600D8E280EE47F0031F8FE /* MemoAddView.swift in Sources */,
 				2AF6F288282FF98800AE2967 /* HomeViewModel.swift in Sources */,
 				2A523FF4281967CB00E55C83 /* FloatingButton.swift in Sources */,
