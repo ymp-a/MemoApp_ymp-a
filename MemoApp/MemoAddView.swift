@@ -24,18 +24,11 @@ struct MemoAddView: View {
     @Binding var isShowSheet: Bool
     // 日付の変数
     @State private var selectionDate = Date()
-    // ボタンのグラデーション定数
-    private let gradientView = LinearGradient(
-        // ライナーグラデ：左から右にグラデーション
-        gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
-        startPoint: .leading,
-        endPoint: .trailing)
 
     var body: some View {
         ZStack {
-            // Digital Color Meterで直接RGB値を参照するのが楽
-            // Assets.xcassetsでダークモードの色を設定
-            Color("backColor")
+            // ダークモード対応背景色
+            MyColor.backColor
                 // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
             VStack {
@@ -79,7 +72,7 @@ struct MemoAddView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 70, alignment: .center)
                         .foregroundColor(.white)
-                        .background(gradientView)
+                        .background(MyColor.gradientView)
                         .cornerRadius(10)
                         .padding()
                 } // 追加ボタンここまで

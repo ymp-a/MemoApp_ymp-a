@@ -14,12 +14,6 @@ import SwiftUI
 struct FloatingButton: View {
     // メモ追加画面の表示切替
     @State private var isShowSheet: Bool = false
-    // ボタンのグラデーション定数
-    private let gradientView = AngularGradient(
-        // 円錐式グラデーション
-        gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
-        center: .center,
-        angle: .degrees(0))
 
     var body: some View {
         VStack {
@@ -37,7 +31,7 @@ struct FloatingButton: View {
                         .font(.system(size: 24))
                 })
                 .frame(width: 60, height: 60)
-                .background(gradientView)
+                .background(MyColor.gradientRoundView)
                 .cornerRadius(30.0)
                 .shadow(color: .gray, radius: 3, x: 3, y: 3)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
