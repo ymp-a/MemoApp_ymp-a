@@ -29,7 +29,7 @@ struct MemoAddView: View {
         ZStack {
             // ダークモード対応背景色
             MyColor.backColor
-            // 画面全体にセット
+                // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Text("メモの追加")
@@ -39,7 +39,7 @@ struct MemoAddView: View {
                     .padding()
                 TextField(" input here", text: $inputText)
                     .font(.title)                                        .border(.gray)
-                // 第一引数には@FocusStateの値を渡し、第二引数には今回はどのfocusedFieldを指しているのかを渡しています。
+                    // 第一引数には@FocusStateの値を渡し、第二引数には今回はどのfocusedFieldを指しているのかを渡しています。
                     .focused($focusedField, equals: .add)
                     .onTapGesture {
                         focusedField = .add
@@ -55,7 +55,7 @@ struct MemoAddView: View {
 
                 // カレンダー選択時にshortとmedium表記が混在するのはなぜ？->実機検証ではmediumのみになってた
                 DatePicker("タイトル", selection: $selectionDate, displayedComponents: .date)
-                // ラベルを消す
+                    // ラベルを消す
                     .labelsHidden()
 
                 Button(action: {

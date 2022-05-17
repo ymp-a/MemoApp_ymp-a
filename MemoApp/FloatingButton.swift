@@ -32,7 +32,7 @@ struct FloatingButton: View {
             .background(MyColor.gradientRoundView)
             .cornerRadius(30.0)
             .shadow(color: .gray, radius: 3, x: 3, y: 3)
-//            .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
+            //            .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
             .frame(maxWidth: .infinity, //　左右いっぱいに広げる
                    maxHeight: .infinity, // 上下いっぱいに広げる
                    alignment: .bottomTrailing) // 右下に揃える

@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct MemoEditView: View {
+    // 編集画面を閉じるための宣言
+    @Environment(\.presentationMode) var presentation
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
     // 行データを受信する
@@ -65,8 +67,8 @@ struct MemoEditView: View {
                 Button(action: {
                     // 変更ボタンの処理
                     updateMemo()
-                    // モーダルを閉じる
-                    //                    isShowEditSheet.toggle()
+                    // 編集画面を閉じる
+                    self.presentation.wrappedValue.dismiss()
                 }) {
                     Text("＋ 変更")
                         .font(.title2)
