@@ -13,35 +13,33 @@ import SwiftUI
 // 右下ボタン外観
 struct FloatingButton: View {
     // メモ追加画面の表示切替
-    @State private var isShowSheet: Bool = false
+    @State var isShowSheet: Bool = false
 
     var body: some View {
-        VStack {
-            // 上から押し込む
-            Spacer()
-            HStack {
-                // 左から押し込む
-                Spacer()
-                Button(action: {
-                    // タップで画面表示させる
-                    isShowSheet.toggle()
-                }, label: {
-                    Image(systemName: "plus")
-                        .foregroundColor(.white)
-                        .font(.system(size: 24))
-                })
-                .frame(width: 60, height: 60)
-                .background(MyColor.gradientRoundView)
-                .cornerRadius(30.0)
-                .shadow(color: .gray, radius: 3, x: 3, y: 3)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
-                // isShowSheetフラグオンで
-                .sheet(isPresented: self.$isShowSheet) {
-                    // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
-                    MemoAddView(isShowSheet: $isShowSheet)
-                } // .sheetここまで
-            } // HStackここまで
-        } // VStackここまで
+        ZStack {
+            MyColor.addButtonBackColor
+                .edgesIgnoringSafeArea(.bottom)
+            Button(action: {
+                // タップで画面表示させる
+                isShowSheet.toggle()
+
+            }, label: {
+                Image(systemName: "plus")
+                    .foregroundColor(.white)
+                    .font(.system(size: 24))
+            })
+            .frame(width: 60, height: 60)
+            .background(MyColor.gradientRoundView)
+            .cornerRadius(30.0)
+            .shadow(color: .gray, radius: 3, x: 3, y: 3)
+//            .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
+            .frame(maxWidth: .infinity, //　左右いっぱいに広げる
+                   maxHeight: .infinity, // 上下いっぱいに広げる
+                   alignment: .bottomTrailing) // 右下に揃える
+            // 追加Viewへ遷移する
+            NavigationLink(destination: MemoAddView(isShowSheet: $isShowSheet),
+                           isActive: $isShowSheet) {}
+        } // ZStackここまで
     } // bodyここまで
 } // FlontingButtonここまで
 

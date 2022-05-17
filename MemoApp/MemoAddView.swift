@@ -29,7 +29,7 @@ struct MemoAddView: View {
         ZStack {
             // ダークモード対応背景色
             MyColor.backColor
-                // 画面全体にセット
+            // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Text("メモの追加")
@@ -37,9 +37,9 @@ struct MemoAddView: View {
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                TextField("", text: $inputText)
+                TextField(" input here", text: $inputText)
                     .font(.title)                                        .border(.gray)
-                    // 第一引数には@FocusStateの値を渡し、第二引数には今回はどのfocusedFieldを指しているのかを渡しています。
+                // 第一引数には@FocusStateの値を渡し、第二引数には今回はどのfocusedFieldを指しているのかを渡しています。
                     .focused($focusedField, equals: .add)
                     .onTapGesture {
                         focusedField = .add
@@ -55,16 +55,13 @@ struct MemoAddView: View {
 
                 // カレンダー選択時にshortとmedium表記が混在するのはなぜ？->実機検証ではmediumのみになってた
                 DatePicker("タイトル", selection: $selectionDate, displayedComponents: .date)
-                    // ラベルを消す
+                // ラベルを消す
                     .labelsHidden()
-                    // テキスト色の変更セット
-                    .colorInvert()
-                    .colorMultiply(.blue)
 
                 Button(action: {
                     // 追加ボタンの処理
                     addMemo()
-                    // モーダルを閉じる
+                    // 追加画面を閉じる
                     isShowSheet.toggle()
                 }) {
                     Text("＋ 追加")
@@ -77,9 +74,6 @@ struct MemoAddView: View {
                         .padding()
                 } // 追加ボタンここまで
             } // VSTACKここまで
-            // タップフォーカス内の範囲を設定しているこれだと上下部セーフエリアまで範囲が広がってViewが崩れた
-            //            .frame(width: UIScreen.main.bounds.width,
-            //                   height: UIScreen.main.bounds.height)
             // 範囲内ならタップでできるようになっている
             .contentShape(RoundedRectangle(cornerRadius: 10))
             // タップした時の処理

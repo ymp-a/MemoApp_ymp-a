@@ -61,9 +61,6 @@ struct MemoEditView: View {
                 DatePicker("タイトル", selection: $editDate, displayedComponents: .date)
                     // ラベルを消す
                     .labelsHidden()
-                    // テキスト色の変更セット
-                    .colorInvert()
-                    .colorMultiply(.blue)
 
                 Button(action: {
                     // 変更ボタンの処理

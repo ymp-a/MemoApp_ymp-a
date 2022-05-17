@@ -27,7 +27,6 @@ struct MemoListsView: View {
         formatter.timeStyle = .long
         return formatter
     }
-
     var body: some View {
         // ナビゲーションバー表示、body直下に記述する
         NavigationView {
@@ -56,19 +55,18 @@ struct MemoListsView: View {
                     } // Listここまで
                     .navigationTitle("メモ一覧")
                     .navigationBarTitleDisplayMode(.automatic)
+
+                    .toolbar {
+                        ToolbarItem(placement: .bottomBar) {
+                            FloatingButton()
+
+                        } // ToolbarItemここまで
+                    } // .toolbarここまで
                 } // VStackここまで
                 // memoリストがなければなしテキストを表示する
                 if memos.isEmpty {
                     Text("なし").font(.title)
                 }
-                // 右下のボタンを最前面に設置
-                FloatingButton()
-                // isShowEditSheetフラグオンで
-                //                    .sheet(isPresented: self.$isShowEditSheet) {
-                //                        // 追加画面をモーダル表示する,状態をメモ追加画面に渡す
-                //                        // ここエラーがわからない
-                ////                        MemoEditView(editMemo: editMemo, isShowEditSheet: $isShowEditSheet)
-                //                    } // .sheetここまで
             } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで
@@ -97,9 +95,6 @@ struct MemoListsView_Previews: PreviewProvider {
         sortDescriptors: [NSSortDescriptor(keyPath: \Memo.date, ascending: true)],
         animation: .default)
     static var memos: FetchedResults<Memo>
-
-    //    static var editMemo: FetchedResults<Memo>.Element = memos[$0]
-
     static var previews: some View {
         MemoListsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
