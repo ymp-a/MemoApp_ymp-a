@@ -16,17 +16,21 @@ struct FloatingButton: View {
     @State var isShowSheet: Bool = false
 
     var body: some View {
+        //        NavigationView {
         ZStack {
             MyColor.addButtonBackColor
                 .edgesIgnoringSafeArea(.bottom)
+
             Button(action: {
                 // タップで画面表示させる
-                isShowSheet.toggle()
-
+                //                    isShowSheet.toggle()
             }, label: {
-                Image(systemName: "plus")
-                    .foregroundColor(.white)
-                    .font(.system(size: 24))
+                // 追加Viewへ遷移する
+                NavigationLink(destination: MemoAddView()) {
+                    Image(systemName: "plus")
+                        .foregroundColor(.white)
+                        .font(.system(size: 24))
+                } // NavigationLinkここまで
             })
             .frame(width: 60, height: 60)
             .background(MyColor.gradientRoundView)
@@ -36,10 +40,8 @@ struct FloatingButton: View {
             .frame(maxWidth: .infinity, //　左右いっぱいに広げる
                    maxHeight: .infinity, // 上下いっぱいに広げる
                    alignment: .bottomTrailing) // 右下に揃える
-            // 追加Viewへ遷移する
-            NavigationLink(destination: MemoAddView(isShowSheet: $isShowSheet),
-                           isActive: $isShowSheet) {}
         } // ZStackここまで
+        //        } // NavigationViewここまで
     } // bodyここまで
 } // FlontingButtonここまで
 

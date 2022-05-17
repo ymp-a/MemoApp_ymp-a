@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct MemoAddView: View {
+    // 編集画面を閉じるための宣言
+    @Environment(\.presentationMode) var presentation
     // フォーカスが当たるTextFieldを判断するためのenumを作成します。
     // @FocusStateの定義にもある通り、ValueはHashableである必要がある為、準拠しています。
     enum Field: Hashable {
@@ -21,7 +23,7 @@ struct MemoAddView: View {
     // メモ内容入力用
     @State private var inputText = ""
     // メモ追加画面(sheet)の表示有無を管理する状態変数
-    @Binding var isShowSheet: Bool
+    //    @Binding var isShowSheet: Bool
     // 日付の変数
     @State private var selectionDate = Date()
 
@@ -62,7 +64,7 @@ struct MemoAddView: View {
                     // 追加ボタンの処理
                     addMemo()
                     // 追加画面を閉じる
-                    isShowSheet.toggle()
+                    self.presentation.wrappedValue.dismiss()
                 }) {
                     Text("＋ 追加")
                         .font(.title2)
@@ -103,6 +105,7 @@ struct MemoAddView: View {
 
 struct MemoAddView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoAddView(isShowSheet: Binding.constant(true))
+        //        MemoAddView(isShowSheet: Binding.constant(true))
+        MemoAddView()
     }
 }
