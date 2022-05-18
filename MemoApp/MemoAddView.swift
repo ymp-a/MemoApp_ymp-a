@@ -40,7 +40,8 @@ struct MemoAddView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 TextField(" input here", text: $inputText)
-                    .font(.title)                                        .border(.gray)
+                    .font(.title)
+                    .border(.gray)
                     // 第一引数には@FocusStateの値を渡し、第二引数には今回はどのfocusedFieldを指しているのかを渡しています。
                     .focused($focusedField, equals: .add)
                     .onTapGesture {

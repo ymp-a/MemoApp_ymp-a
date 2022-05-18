@@ -19,6 +19,12 @@ struct MemoEditView: View {
     @State private var context: String
     @State private var editDate: Date
 
+    enum Field: Hashable {
+        case change
+    }
+    // @FocusStateを付与した値をnilにするとキーボードが閉じてくれるのでオプショナルにしています。
+    @FocusState private var focusedField: Field?
+
     init(editMemo: Memo?) {
         // 1行のデータをnilチェック
         if let editMemo = editMemo {
@@ -50,6 +56,12 @@ struct MemoEditView: View {
                     .padding()
                 // テキストフィールド
                 TextField("Input here", text: $context)
+                    .font(.title)
+                    .border(.gray)
+                    .focused($focusedField, equals: .change)
+                    .onTapGesture {
+                        focusedField = .change
+                    }
                 Spacer()
                 // 区切り線　(VStack外では縦線になる)
                 Divider()
@@ -80,6 +92,12 @@ struct MemoEditView: View {
                         .padding()
                 } // 追加ボタンここまで
             } // VSTACKここまで
+            // 範囲内ならタップでできるようになっている
+            .contentShape(RoundedRectangle(cornerRadius: 10))
+            // タップした時の処理
+            .onTapGesture {
+                focusedField = nil
+            } // onTapGesture
         } // ZSTACKここまで
     } // bodyここまで
 

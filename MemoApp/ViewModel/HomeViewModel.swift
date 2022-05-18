@@ -6,3 +6,8 @@
 //
 
 import SwiftUI
+import CoreData
+
+class HomeViewModel : ObservableObject{
+    //追加編集機能をまとめる
+}
