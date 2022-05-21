@@ -66,15 +66,12 @@
 			isa = PBXGroup;
 			children = (
 				2A8978F127C7921D0018FE7B /* MemoAppApp.swift */,
-				2A8978F527C7921E0018FE7B /* Assets.xcassets */,
-				2A8978FA27C7921E0018FE7B /* Persistence.swift */,
+				2ABAC58D2838CBFF00D9A1A9 /* View */,
 				2AF6F285282FF93200AE2967 /* ViewModel */,
-				2A89790527C901750018FE7B /* MemoListsView.swift */,
 				2AF6F286282FF94100AE2967 /* Model */,
-				2A523FF3281967CB00E55C83 /* FloatingButton.swift */,
-				2A600D8D280EE47F0031F8FE /* MemoAddView.swift */,
-				2A523FF5281AA9F200E55C83 /* MemoEditView.swift */,
 				2A8978FC27C7921E0018FE7B /* MemoApp.xcdatamodeld */,
+				2A8978FA27C7921E0018FE7B /* Persistence.swift */,
+				2A8978F527C7921E0018FE7B /* Assets.xcassets */,
 				2A8978F727C7921E0018FE7B /* Preview Content */,
 			);
 			path = MemoApp;
@@ -86,6 +83,17 @@
 				2A8978F827C7921E0018FE7B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2ABAC58D2838CBFF00D9A1A9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2A89790527C901750018FE7B /* MemoListsView.swift */,
+				2A523FF3281967CB00E55C83 /* FloatingButton.swift */,
+				2A600D8D280EE47F0031F8FE /* MemoAddView.swift */,
+				2A523FF5281AA9F200E55C83 /* MemoEditView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2AF6F285282FF93200AE2967 /* ViewModel */ = {

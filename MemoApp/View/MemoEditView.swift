@@ -10,7 +10,7 @@ import CoreData
 
 struct MemoEditView: View {
     // 編集画面を閉じるための宣言
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) private var presentation
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
     // 行データを受信する

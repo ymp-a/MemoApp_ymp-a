@@ -10,7 +10,7 @@ import CoreData
 
 struct MemoAddView: View {
     // 編集画面を閉じるための宣言
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) private var presentation
     // フォーカスが当たるTextFieldを判断するためのenumを作成します。
     // @FocusStateの定義にもある通り、ValueはHashableである必要がある為、準拠しています。
     enum Field: Hashable {
