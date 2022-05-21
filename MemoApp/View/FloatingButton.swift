@@ -16,11 +16,7 @@ struct FloatingButton: View {
     @State var isShowSheet: Bool = false
 
     var body: some View {
-        //        NavigationView {
         ZStack {
-            MyColor.addButtonBackColor
-                .edgesIgnoringSafeArea(.bottom)
-
             Button(action: {
                 // タップで画面表示させる
                 //                    isShowSheet.toggle()
@@ -41,7 +37,6 @@ struct FloatingButton: View {
                    maxHeight: .infinity, // 上下いっぱいに広げる
                    alignment: .bottomTrailing) // 右下に揃える
         } // ZStackここまで
-        //        } // NavigationViewここまで
     } // bodyここまで
 } // FlontingButtonここまで
 

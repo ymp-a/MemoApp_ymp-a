@@ -59,7 +59,6 @@ struct MemoListsView: View {
                     .toolbar {
                         ToolbarItem(placement: .bottomBar) {
                             FloatingButton()
-
                         } // ToolbarItemここまで
                     } // .toolbarここまで
                 } // VStackここまで
