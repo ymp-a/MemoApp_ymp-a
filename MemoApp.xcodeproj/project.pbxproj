@@ -16,7 +16,7 @@
 		2A8978FB27C7921E0018FE7B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8978FA27C7921E0018FE7B /* Persistence.swift */; };
 		2A8978FE27C7921E0018FE7B /* MemoApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2A8978FC27C7921E0018FE7B /* MemoApp.xcdatamodeld */; };
 		2A89790627C901750018FE7B /* MemoListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89790527C901750018FE7B /* MemoListsView.swift */; };
-		2AF6F288282FF98800AE2967 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF6F287282FF98800AE2967 /* HomeViewModel.swift */; };
+		2AF6F288282FF98800AE2967 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF6F287282FF98800AE2967 /* AddViewModel.swift */; };
 		2AF6F28A28314B4E00AE2967 /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF6F28928314B4E00AE2967 /* ColorModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +31,7 @@
 		2A8978FA27C7921E0018FE7B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		2A8978FD27C7921E0018FE7B /* MemoApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoApp.xcdatamodel; sourceTree = "<group>"; };
 		2A89790527C901750018FE7B /* MemoListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListsView.swift; sourceTree = "<group>"; };
-		2AF6F287282FF98800AE2967 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		2AF6F287282FF98800AE2967 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		2AF6F28928314B4E00AE2967 /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,7 +99,7 @@
 		2AF6F285282FF93200AE2967 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				2AF6F287282FF98800AE2967 /* HomeViewModel.swift */,
+				2AF6F287282FF98800AE2967 /* AddViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -207,7 +207,7 @@
 				2A8978FB27C7921E0018FE7B /* Persistence.swift in Sources */,
 				2AF6F28A28314B4E00AE2967 /* ColorModel.swift in Sources */,
 				2A600D8E280EE47F0031F8FE /* MemoAddView.swift in Sources */,
-				2AF6F288282FF98800AE2967 /* HomeViewModel.swift in Sources */,
+				2AF6F288282FF98800AE2967 /* AddViewModel.swift in Sources */,
 				2A523FF4281967CB00E55C83 /* FloatingButton.swift in Sources */,
 				2A8978F227C7921D0018FE7B /* MemoAppApp.swift in Sources */,
 				2A89790627C901750018FE7B /* MemoListsView.swift in Sources */,

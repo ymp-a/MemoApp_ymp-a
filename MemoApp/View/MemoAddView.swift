@@ -21,11 +21,11 @@ struct MemoAddView: View {
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
     // メモ内容入力用
-    @State private var inputText = ""
+    @State var inputText = ""
     // メモ追加画面(sheet)の表示有無を管理する状態変数
     //    @Binding var isShowSheet: Bool
     // 日付の変数
-    @State private var selectionDate = Date()
+    @State var selectionDate = Date()
 
     var body: some View {
         ZStack {
@@ -63,7 +63,7 @@ struct MemoAddView: View {
 
                 Button(action: {
                     // 追加ボタンの処理
-                    addMemo()
+                    AddViewModel.addMemo(addText:inputText,addDate:selectionDate)
                     // 追加画面を閉じる
                     self.presentation.wrappedValue.dismiss()
                 }) {
@@ -85,23 +85,6 @@ struct MemoAddView: View {
             } // onTapGesture
         } // ZSTACKここまで
     } // bodyここまで
-    // 追加機能
-    private func addMemo() {
-        // 新規レコード作成
-        let newMemo = Memo(context: viewContext)
-        // 直接代入する
-        newMemo.context = inputText
-        newMemo.date = selectionDate
-        // データベース保存
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        } // do catchここまで
-    } // addMemoここまで
 } // MemoAddViewここまで
 
 struct MemoAddView_Previews: PreviewProvider {
