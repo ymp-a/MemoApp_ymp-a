@@ -10,7 +10,7 @@ import CoreData
 
 struct MemoListsView: View {
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
-    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.managedObjectContext) private var viewContext
     // データベースよりデータを取得
     @FetchRequest(
         // CoreDataの並び順、key値、アニメーションを設定してる

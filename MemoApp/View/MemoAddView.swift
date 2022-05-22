@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct MemoAddView: View {
+    // AddViewModelを利用するための宣言
+    private let addViewModel = AddViewModel()
     // 編集画面を閉じるための宣言
     @Environment(\.presentationMode) private var presentation
     // フォーカスが当たるTextFieldを判断するためのenumを作成します。
@@ -22,8 +24,6 @@ struct MemoAddView: View {
     @Environment(\.managedObjectContext) var viewContext
     // メモ内容入力用
     @State var inputText = ""
-    // メモ追加画面(sheet)の表示有無を管理する状態変数
-    //    @Binding var isShowSheet: Bool
     // 日付の変数
     @State var selectionDate = Date()
 
@@ -63,7 +63,7 @@ struct MemoAddView: View {
 
                 Button(action: {
                     // 追加ボタンの処理
-                    AddViewModel.addMemo(addText:inputText,addDate:selectionDate)
+                    addViewModel.addMemo(viewContext: viewContext, addText: inputText, addDate: selectionDate)
                     // 追加画面を閉じる
                     self.presentation.wrappedValue.dismiss()
                 }) {
