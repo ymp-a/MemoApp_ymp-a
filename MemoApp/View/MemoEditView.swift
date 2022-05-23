@@ -9,12 +9,14 @@ import SwiftUI
 import CoreData
 
 struct MemoEditView: View {
+    // EditViewModelを利用するための宣言
+    private let editViewModel = EditViewModel()
     // 編集画面を閉じるための宣言
     @Environment(\.presentationMode) private var presentation
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
-    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.managedObjectContext) private var viewContext
     // 行データを受信する
-    var editMemo: Memo?
+    private var editMemo: Memo?
 
     @State private var context: String
     @State private var editDate: Date
@@ -78,7 +80,7 @@ struct MemoEditView: View {
 
                 Button(action: {
                     // 変更ボタンの処理
-                    updateMemo()
+                    editViewModel.updateMemo(viewContext: viewContext, editMemo: editMemo, context: context, editDate: editDate)
                     // 編集画面を閉じる
                     self.presentation.wrappedValue.dismiss()
                 }) {
@@ -100,22 +102,6 @@ struct MemoEditView: View {
             } // onTapGesture
         } // ZSTACKここまで
     } // bodyここまで
-
-    // 変更機能
-    private func updateMemo() {
-        // 指定行に値をセット、!の位置は合っているのか不明？
-        editMemo!.context = context
-        editMemo!.date = editDate
-        // データベース保存
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        } // do catchここまで
-    } // editMemoここまで
 } // MemoEditViewここまで
 
 // プレビューでeditMemoの具体的な値の指定方法がわからないのでとりあえずコメントアウトする
