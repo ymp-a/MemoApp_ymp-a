@@ -1,13 +1,14 @@
 //
-//  ColorModel.swift
+//  ColorExtension.swift
 //  MemoApp
 //
 //  Created by satoshi yamashita on 2022/05/15.
 //
 
+import Foundation
 import SwiftUI
 
-struct MyColor {
+extension Color {
     // Digital Color Meterで直接RGB値を参照するのが楽
     // Assets.xcassetsでダークモードの色を設定
     static let backColor = Color("backColor")
@@ -24,4 +25,4 @@ struct MyColor {
         gradient: Gradient(colors: [Color(UIColor.blue), Color(UIColor.green)]),
         startPoint: .leading,
         endPoint: .trailing)
-}
+} // extensionここまで

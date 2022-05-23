@@ -47,7 +47,7 @@ struct MemoEditView: View {
     var body: some View {
         ZStack {
             // ダークモード対応背景色
-            MyColor.backColor
+            Color.backColor
                 // 画面全体にセット
                 .edgesIgnoringSafeArea(.all)
             VStack {
@@ -89,7 +89,7 @@ struct MemoEditView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 70, alignment: .center)
                         .foregroundColor(.white)
-                        .background(MyColor.gradientView)
+                        .background(Color.gradientView)
                         .cornerRadius(10)
                         .padding()
                 } // 追加ボタンここまで
