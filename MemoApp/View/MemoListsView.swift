@@ -18,7 +18,7 @@ struct MemoListsView: View {
         animation: .default)
     private var memos: FetchedResults<Memo>
     // タップした行の情報を渡す
-    @State var editMemo: Memo?
+    private var editMemo: Memo?
     // フォーマット出力形式の定義部分
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
