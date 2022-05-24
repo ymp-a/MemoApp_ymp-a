@@ -30,7 +30,8 @@ struct MemoListsView: View {
     var body: some View {
         // ナビゲーションバー表示、body直下に記述する
         NavigationView {
-            ZStack {
+            // このalignment以降の記述でなぜボタンだけ反映されているのか？VStack外のため？
+            ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
                 VStack {
                     // 取得したデータをリスト表示
                     List {
@@ -42,7 +43,7 @@ struct MemoListsView: View {
                                     Text("\(memo.context!)")
                                         .fontWeight(.bold)
                                         .font(.title)
-                                        + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                    + Text("\n\(memo.date!, formatter: memoFormatter)")
                                         .fontWeight(.bold)
                                     Spacer()
                                 } // HStackここまで
@@ -55,17 +56,26 @@ struct MemoListsView: View {
                     } // Listここまで
                     .navigationTitle("メモ一覧")
                     .navigationBarTitleDisplayMode(.automatic)
-
-                    .toolbar {
-                        ToolbarItem(placement: .bottomBar) {
-                            FloatingButton()
-                        } // ToolbarItemここまで
-                    } // .toolbarここまで
                 } // VStackここまで
                 // memoリストがなければなしテキストを表示する
                 if memos.isEmpty {
                     Text("なし").font(.title)
                 }
+                // 追加ボタン
+                Button(action: {
+                    // タップで画面表示させる
+                }, label: {
+                    // 追加Viewへ遷移する
+                    NavigationLink(destination: MemoAddView()) {
+                        Image(systemName: "plus")
+                            .foregroundColor(.white)
+                            .font(.system(size: 24))
+                            .padding(20)
+                            .background(Color.gradientRoundView)
+                            .clipShape(Circle())
+                    } // NavigationLinkここまで
+                })
+                .padding(20)
             } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで

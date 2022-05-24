@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A523FF4281967CB00E55C83 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A523FF3281967CB00E55C83 /* FloatingButton.swift */; };
 		2A523FF6281AA9F200E55C83 /* MemoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A523FF5281AA9F200E55C83 /* MemoEditView.swift */; };
 		2A600D8E280EE47F0031F8FE /* MemoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A600D8D280EE47F0031F8FE /* MemoAddView.swift */; };
 		2A8978F227C7921D0018FE7B /* MemoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8978F127C7921D0018FE7B /* MemoAppApp.swift */; };
@@ -22,7 +21,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2A523FF3281967CB00E55C83 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		2A523FF5281AA9F200E55C83 /* MemoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditView.swift; sourceTree = "<group>"; };
 		2A600D8D280EE47F0031F8FE /* MemoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoAddView.swift; sourceTree = "<group>"; };
 		2A8978EE27C7921D0018FE7B /* MemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				2A89790527C901750018FE7B /* MemoListsView.swift */,
-				2A523FF3281967CB00E55C83 /* FloatingButton.swift */,
 				2A600D8D280EE47F0031F8FE /* MemoAddView.swift */,
 				2A523FF5281AA9F200E55C83 /* MemoEditView.swift */,
 			);
@@ -212,7 +209,6 @@
 				2AF6F28A28314B4E00AE2967 /* ColorExtension.swift in Sources */,
 				2A600D8E280EE47F0031F8FE /* MemoAddView.swift in Sources */,
 				2AF6F288282FF98800AE2967 /* AddViewModel.swift in Sources */,
-				2A523FF4281967CB00E55C83 /* FloatingButton.swift in Sources */,
 				2A8978F227C7921D0018FE7B /* MemoAppApp.swift in Sources */,
 				2A89790627C901750018FE7B /* MemoListsView.swift in Sources */,
 				2A8978FE27C7921E0018FE7B /* MemoApp.xcdatamodeld in Sources */,
