@@ -12,7 +12,7 @@ class EditViewModel {
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
     // 行データを受信する
-    var editMemo: Memo?
+    private var editMemo: Memo?
     private var content: String = ""
     private var editDate: Date = Date()
     // 変更機能
