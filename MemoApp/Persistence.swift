@@ -14,7 +14,7 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         // プレビュー用初期値の設定
-        for _ in 0..<5 {
+        for _ in 0..<1 {
             let newMemo = Memo(context: viewContext)
             newMemo.date = Date()
             newMemo.context = "メモの内容"

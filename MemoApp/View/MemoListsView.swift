@@ -31,51 +31,65 @@ struct MemoListsView: View {
         // ナビゲーションバー表示、body直下に記述する
         NavigationView {
             // このalignment以降の記述でなぜボタンだけ反映されているのか？VStack外のため？
+            // Memoがないとき中央にボタンが寄ってくる。HStackとSpacer()でゴリ押し。
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
                 VStack {
-                    // 取得したデータをリスト表示
-                    List {
-                        ForEach(memos) { memo in
-                            // 行毎に編集Viewとmemo情報を生成している
-                            NavigationLink(destination: MemoEditView(editMemo: memo)) {
-                                HStack {
-                                    // 一部のテキスト装飾は+で繋げればよい
-                                    Text("\(memo.context!)")
-                                        .fontWeight(.bold)
-                                        .font(.title)
-                                    + Text("\n\(memo.date!, formatter: memoFormatter)")
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                } // HStackここまで
-                                //　checkedフラグを変更する
-                                .contentShape(Rectangle())
-                            } // NavigationLinkここまで
-                        } // ForEachここまで
-                        // 削除処理イベント
-                        .onDelete(perform: deleteMemos)
-                    } // Listここまで
-                    .navigationTitle("メモ一覧")
-                    .navigationBarTitleDisplayMode(.automatic)
+                    // Memoがあるとき
+                    if memos.isEmpty {
+                        Spacer()
+                        // メモがないときに表示するView
+                        HStack {
+                            Spacer()
+                            Text("なし").font(.title)
+                            Spacer()
+                        } // HStackここまで
+                        Spacer()
+                    } else {
+                        // メモがあるときに表示するView
+                        // 取得したデータをリスト表示
+                        List {
+                            ForEach(memos) { memo in
+                                // 行毎に編集Viewとmemo情報を生成している
+                                NavigationLink(destination: MemoEditView(editMemo: memo)) {
+                                    HStack {
+                                        // 一部のテキスト装飾は+で繋げればよい
+                                        Text("\(memo.context!)")
+                                            .fontWeight(.bold)
+                                            .font(.title)
+                                            + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                            .fontWeight(.bold)
+                                        Spacer()
+                                    } // HStackここまで
+                                    //　checkedフラグを変更する
+                                    .contentShape(Rectangle())
+                                } // NavigationLinkここまで
+                            } // ForEachここまで
+                            // 削除処理イベント
+                            .onDelete(perform: deleteMemos)
+                        } // Listここまで
+                        .navigationTitle("メモ一覧")
+                        .navigationBarTitleDisplayMode(.automatic)
+                    } // if文ここまで
                 } // VStackここまで
-                // memoリストがなければなしテキストを表示する
-                if memos.isEmpty {
-                    Text("なし").font(.title)
-                }
-                // 追加ボタン
-                Button(action: {
-                    // タップで画面表示させる
-                }, label: {
-                    // 追加Viewへ遷移する
-                    NavigationLink(destination: MemoAddView()) {
-                        Image(systemName: "plus")
-                            .foregroundColor(.white)
-                            .font(.system(size: 24))
-                            .padding(20)
-                            .background(Color.gradientRoundView)
-                            .clipShape(Circle())
-                    } // NavigationLinkここまで
-                })
-                .padding(20)
+
+                HStack {
+                    Spacer()
+                    // 追加ボタン
+                    Button(action: {
+                        // タップで画面表示させる
+                    }, label: {
+                        // 追加Viewへ遷移する
+                        NavigationLink(destination: MemoAddView()) {
+                            Image(systemName: "plus")
+                                .foregroundColor(.white)
+                                .font(.system(size: 24))
+                                .padding(20)
+                                .background(Color.gradientRoundView)
+                                .clipShape(Circle())
+                        } // NavigationLinkここまで
+                    })
+                    .padding(20)
+                } // HStackここまで
             } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで
