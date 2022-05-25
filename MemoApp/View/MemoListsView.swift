@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct MemoListsView: View {
+    // ViewModel
+    private let deleteViewModel = DeleteViewModel()
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) private var viewContext
     // データベースよりデータを取得
@@ -27,23 +29,18 @@ struct MemoListsView: View {
         formatter.timeStyle = .long
         return formatter
     }
+
     var body: some View {
-        // ナビゲーションバー表示、body直下に記述する
+        // ナビゲーションバー表示、body直下に記述する。起点になるViewに記述する。
         NavigationView {
-            // このalignment以降の記述でなぜボタンだけ反映されているのか？VStack外のため？
-            // Memoがないとき中央にボタンが寄ってくる。HStackとSpacer()でゴリ押し。
-            ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
+            ZStack {
                 VStack {
                     // Memoがあるとき
                     if memos.isEmpty {
-                        Spacer()
                         // メモがないときに表示するView
                         HStack {
-                            Spacer()
                             Text("なし").font(.title)
-                            Spacer()
                         } // HStackここまで
-                        Spacer()
                     } else {
                         // メモがあるときに表示するView
                         // 取得したデータをリスト表示
@@ -56,7 +53,7 @@ struct MemoListsView: View {
                                         Text("\(memo.context!)")
                                             .fontWeight(.bold)
                                             .font(.title)
-                                            + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                        + Text("\n\(memo.date!, formatter: memoFormatter)")
                                             .fontWeight(.bold)
                                         Spacer()
                                     } // HStackここまで
@@ -65,49 +62,42 @@ struct MemoListsView: View {
                                 } // NavigationLinkここまで
                             } // ForEachここまで
                             // 削除処理イベント
-                            .onDelete(perform: deleteMemos)
+                            // 他のファイルにメソッドがある場合はクロージャー展開必須
+                            // 複数選択を行える機能もあるのでInt型ではなくindexSetで要素を取得する
+                            .onDelete { indexSet in
+                                deleteViewModel.deleteMemos(offsets: indexSet, memos: memos, viewContext: viewContext)
+                            } // onDeleteここまで
                         } // Listここまで
                         .navigationTitle("メモ一覧")
                         .navigationBarTitleDisplayMode(.automatic)
                     } // if文ここまで
                 } // VStackここまで
 
-                HStack {
+                // ボタンのViewここから
+                VStack {
                     Spacer()
-                    // 追加ボタン
-                    Button(action: {
-                        // タップで画面表示させる
-                    }, label: {
-                        // 追加Viewへ遷移する
-                        NavigationLink(destination: MemoAddView()) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.white)
-                                .font(.system(size: 24))
-                                .padding(20)
-                                .background(Color.gradientRoundView)
-                                .clipShape(Circle())
-                        } // NavigationLinkここまで
-                    })
-                    .padding(20)
-                } // HStackここまで
+                    HStack {
+                        Spacer()
+                        // 追加ボタン
+                        Button(action: {
+                            // タップで画面表示させる
+                        }, label: {
+                            // 追加Viewへ遷移する
+                            NavigationLink(destination: MemoAddView()) {
+                                Image(systemName: "plus")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 24))
+                                    .padding(20)
+                                    .background(Color.gradientRoundView)
+                                    .clipShape(Circle())
+                            } // NavigationLinkここまで
+                        })
+                        .padding(20)
+                    } // HStackここまで
+                } // VStackここまで
             } // ZStackここまで
         } // NavigationViewここまで
     } // bodyここまで
-
-    // 削除
-    private func deleteMemos(offsets: IndexSet) {
-        // レコードの削除
-        offsets.map { memos[$0] }.forEach(viewContext.delete)
-        // データベース保存
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }// do catchここまで
-    } // addMemoここまで
 } // struct MemoListsViewここまで
 
 struct MemoListsView_Previews: PreviewProvider {

@@ -16,6 +16,7 @@
 		2A8978FE27C7921E0018FE7B /* MemoApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2A8978FC27C7921E0018FE7B /* MemoApp.xcdatamodeld */; };
 		2A89790627C901750018FE7B /* MemoListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89790527C901750018FE7B /* MemoListsView.swift */; };
 		2ABAC58F283BAF1D00D9A1A9 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAC58E283BAF1D00D9A1A9 /* EditViewModel.swift */; };
+		2ABAC591283D176E00D9A1A9 /* DeleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAC590283D176E00D9A1A9 /* DeleteViewModel.swift */; };
 		2AF6F288282FF98800AE2967 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF6F287282FF98800AE2967 /* AddViewModel.swift */; };
 		2AF6F28A28314B4E00AE2967 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF6F28928314B4E00AE2967 /* ColorExtension.swift */; };
 /* End PBXBuildFile section */
@@ -31,6 +32,7 @@
 		2A8978FD27C7921E0018FE7B /* MemoApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoApp.xcdatamodel; sourceTree = "<group>"; };
 		2A89790527C901750018FE7B /* MemoListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListsView.swift; sourceTree = "<group>"; };
 		2ABAC58E283BAF1D00D9A1A9 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		2ABAC590283D176E00D9A1A9 /* DeleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteViewModel.swift; sourceTree = "<group>"; };
 		2AF6F287282FF98800AE2967 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		2AF6F28928314B4E00AE2967 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				2AF6F287282FF98800AE2967 /* AddViewModel.swift */,
+				2ABAC590283D176E00D9A1A9 /* DeleteViewModel.swift */,
 				2ABAC58E283BAF1D00D9A1A9 /* EditViewModel.swift */,
 			);
 			path = ViewModel;
@@ -208,6 +211,7 @@
 				2A8978FB27C7921E0018FE7B /* Persistence.swift in Sources */,
 				2AF6F28A28314B4E00AE2967 /* ColorExtension.swift in Sources */,
 				2A600D8E280EE47F0031F8FE /* MemoAddView.swift in Sources */,
+				2ABAC591283D176E00D9A1A9 /* DeleteViewModel.swift in Sources */,
 				2AF6F288282FF98800AE2967 /* AddViewModel.swift in Sources */,
 				2A8978F227C7921D0018FE7B /* MemoAppApp.swift in Sources */,
 				2A89790627C901750018FE7B /* MemoListsView.swift in Sources */,
