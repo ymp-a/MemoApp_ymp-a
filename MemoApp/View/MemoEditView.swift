@@ -17,7 +17,6 @@ struct MemoEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     // 行データを受信する
     private var editMemo: Memo?
-
     @State private var context: String
     @State private var editDate: Date
 
@@ -62,7 +61,6 @@ struct MemoEditView: View {
                 TextEditor(text: $context)
                     .font(.title3)
                     .background(Color.backColor)
-
                     .focused($focusedField, equals: .change)
                     .onTapGesture {
                         focusedField = .change
