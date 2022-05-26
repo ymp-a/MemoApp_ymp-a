@@ -25,8 +25,8 @@ struct MemoListsView: View {
     private var memoFormatter: DateFormatter {
         let formatter = DateFormatter()
         // .Dateの表示をセット
-        formatter.dateStyle = .long
-        formatter.timeStyle = .long
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
         return formatter
     }
 
