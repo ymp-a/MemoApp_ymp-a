@@ -39,7 +39,7 @@ struct MemoListsView: View {
                     if memos.isEmpty {
                         // メモがないときに表示するView
                         HStack {
-                            Text("なし").font(.title)
+                            Text("なし").font(.title).bold()
                         } // HStackここまで
                     } else {
                         // メモがあるときに表示するView
@@ -69,7 +69,7 @@ struct MemoListsView: View {
                             } // onDeleteここまで
                         } // Listここまで
                         .navigationTitle("メモ一覧")
-                        .navigationBarTitleDisplayMode(.automatic)
+                        .navigationBarTitleDisplayMode(.large)
                     } // if文ここまで
                 } // VStackここまで
 

@@ -26,6 +26,11 @@ struct MemoAddView: View {
     @State var inputText = ""
     // 日付の変数
     @State var selectionDate = Date()
+    // TextEditorの色を初期化
+    init() {
+        // TextEditorの背景色を設定するため
+        UITextView.appearance().backgroundColor = .clear
+    }
 
     var body: some View {
         ZStack {
@@ -35,26 +40,28 @@ struct MemoAddView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Text("メモの追加")
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading)
+                TextEditor(text: $inputText)
+                    .font(.title3)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.backColor)
                     .padding()
-                TextField(" input here", text: $inputText)
-                    .font(.title)
-                    .border(.gray)
                     // 第一引数には@FocusStateの値を渡し、第二引数には今回はどのfocusedFieldを指しているのかを渡しています。
                     .focused($focusedField, equals: .add)
                     .onTapGesture {
                         focusedField = .add
                     }
-                Spacer()
+                //                Spacer()
                 // 区切り線　(VStack外では縦線になる)
                 Divider()
                 Text("いつのメモ？")
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
+                    .padding(.leading)
 
                 // カレンダー選択時にshortとmedium表記が混在するのはなぜ？->実機検証ではmediumのみになってた
                 DatePicker("タイトル", selection: $selectionDate, displayedComponents: .date)

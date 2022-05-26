@@ -28,6 +28,8 @@ struct MemoEditView: View {
     @FocusState private var focusedField: Field?
 
     init(editMemo: Memo?) {
+        // TextEditorの背景色を設定するため
+        UITextView.appearance().backgroundColor = .clear
         // 1行のデータをnilチェック
         if let editMemo = editMemo {
             //　self.editMemoが21行目のeditMemoのこと、初期化後に代入している
@@ -52,26 +54,27 @@ struct MemoEditView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Text("メモの編集")
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
+                    .padding(.leading)
                 // テキストフィールド
-                TextField("Input here", text: $context)
-                    .font(.title)
-                    .border(.gray)
+                TextEditor(text: $context)
+                    .font(.title3)
+                    .background(Color.backColor)
+
                     .focused($focusedField, equals: .change)
                     .onTapGesture {
                         focusedField = .change
                     }
-                Spacer()
+                    .padding()
                 // 区切り線　(VStack外では縦線になる)
                 Divider()
                 Text("いつのメモ？")
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
+                    .padding(.leading)
 
                 // カレンダー選択時にshortとmedium表記が混在するのはなぜ？->実機検証ではmediumのみになってた
                 DatePicker("タイトル", selection: $editDate, displayedComponents: .date)
