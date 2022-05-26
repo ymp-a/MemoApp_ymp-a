@@ -11,9 +11,6 @@ import CoreData
 class AddViewModel {
     private var addText: String = ""
     private var addDate: Date = Date()
-    // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
-    @Environment(\.managedObjectContext) private var viewContext
-    // 追加機能
     // viewContextを引数でもらう意味は？→CoraData機能を利用するため。
     func addMemo(viewContext: NSManagedObjectContext, addText: String, addDate: Date) {
         // 新規レコード作成

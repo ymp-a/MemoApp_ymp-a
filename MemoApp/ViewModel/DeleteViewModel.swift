@@ -9,10 +9,7 @@ import SwiftUI
 import CoreData
 
 class DeleteViewModel {
-    // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
-    // classの中では＠Environment利用できないので引数で連れてきている。
-    @Environment(\.managedObjectContext) private var viewContext
-    // 削除
+    // classの中では＠Environment利用できないのでviewContextを引数で連れてきている。
     // viewContextはCoreData機能（セーブとか）を利用するのに必要。
     func deleteMemos(offsets: IndexSet, memos: FetchedResults<Memo>, viewContext: NSManagedObjectContext) {
         // レコードの削除

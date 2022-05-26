@@ -9,8 +9,6 @@ import SwiftUI
 import CoreData
 
 class EditViewModel {
-    // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
-    @Environment(\.managedObjectContext) var viewContext
     // 行データを受信する
     private var editMemo: Memo?
     private var content: String = ""
