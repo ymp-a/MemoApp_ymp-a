@@ -9,11 +9,6 @@ import SwiftUI
 import CoreData
 
 class EditViewModel {
-    // 行データを受信する
-    private var editMemo: Memo?
-    private var content: String = ""
-    private var editDate: Date = Date()
-    // 変更機能
     func updateMemo(viewContext: NSManagedObjectContext, editMemo: Memo?, context: String, editDate: Date) {
         // 指定行に値をセット、!の位置は合っているのか不明？
         editMemo!.context = context
