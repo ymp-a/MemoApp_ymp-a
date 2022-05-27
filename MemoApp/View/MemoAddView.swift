@@ -23,9 +23,9 @@ struct MemoAddView: View {
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
     @Environment(\.managedObjectContext) var viewContext
     // メモ内容入力用
-    @State var inputText = ""
+    @State private var inputText = ""
     // 日付の変数
-    @State var selectionDate = Date()
+    @State private var selectionDate = Date()
     // TextEditorの色を初期化
     init() {
         // TextEditorの背景色を設定するため
