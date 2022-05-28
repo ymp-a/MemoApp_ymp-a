@@ -12,6 +12,7 @@ struct MemoListsView: View {
     // ViewModel
     private let deleteViewModel = DeleteViewModel()
     // 被管理オブジェクトコンテキスト（ManagedObjectContext）の取得
+    // class内では使用できないので注意
     @Environment(\.managedObjectContext) private var viewContext
     // データベースよりデータを取得
     @FetchRequest(
