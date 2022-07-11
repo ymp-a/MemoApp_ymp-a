@@ -36,7 +36,9 @@ https://user-images.githubusercontent.com/68992872/177164576-71d115fe-1f00-4832-
 ## 推しポイント
 @FocusStateで入力フィールド外のタップを検出してキーボードを収納します。
 
-●MemoAddView.swiftより
+focusedFieldの値があるならキーボードをポップアップ、nilならキーボードをポップダウン。
+
+●MemoAddView.swiftより抜粋
 ```swift
  // @FocusStateの定義にもある通り、ValueはHashableである必要がある為、準拠しています。
     enum Field: Hashable {
