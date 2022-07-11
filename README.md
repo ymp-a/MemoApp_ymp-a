@@ -7,6 +7,17 @@
 
 ソースコードを見る前に、[こちらのご確認](https://code-candy.com/courses/ios/lectures/33267857)をお願いします。
 
+# フロー図
+```mermaid
+flowchart LR
+    subgraph Data Binding
+    id1(View) -- Owns --> id2(ViewModel) -. Update .-> id1
+    end
+    id2 -- Owns -->  id3(CoreData) -. Update .-> id2
+  
+```
+
+
 # 実行画面
 
 https://user-images.githubusercontent.com/68992872/177164576-71d115fe-1f00-4832-9c60-e797d22db580.mov
@@ -21,14 +32,6 @@ https://user-images.githubusercontent.com/68992872/177164576-71d115fe-1f00-4832-
 - メモ内容をタップすると編集可能
 
 - ダークモードに対応
-
-# 実行方法
-## 必要ソフトとデバイス
-- mac
-- Xcode
-- iPhone simulater or iPhone実機
-
-  SwiftUIで開発されているためiOS13以降が必要です
 
 # 実行手順
  ## 1, プロジェクトを立ち上げる
@@ -45,6 +48,7 @@ open MemoApp.xcodeproj
 - macOS Monterey 12.4
 - iPhone simulater 13.4.1
 - iPhone実機 iOS15.5
+  SwiftUIで開発されているためiOS13以降が必要です
 # 作成者
 https://twitter.com/YMPa_FXSB103
 # ライセンス
