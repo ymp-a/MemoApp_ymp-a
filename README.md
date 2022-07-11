@@ -7,6 +7,8 @@
 
 ソースコードを見る前に、[こちらのご確認](https://code-candy.com/courses/ios/lectures/33267857)をお願いします。
 
+CoreDataを初めて利用したので忘備録的にコメントを残しています。ご了承ください。
+
 # フロー図
 ```mermaid
 flowchart LR
@@ -24,14 +26,47 @@ https://user-images.githubusercontent.com/68992872/177164576-71d115fe-1f00-4832-
 
 # 機能・特徴・推しポイント
 - シンプルなメモアプリ
-
 - CoreDataを利用してアプリを終了してもデータは端末に残ります
-
-- 不要なメモは左スワイプで簡単に削除可能
-
-- メモ内容をタップすると編集可能
-
+- メモは左スワイプで簡単に削除
+- メモ内容をタップで編集
 - ダークモードに対応
+- SwiftLint導入
+- extensionで背景色管理
+
+## 推しポイント
+@FocusStateで入力フィールド外のタップを検出してキーボードを収納します。
+
+●MemoAddView.swiftより
+```swift
+ // @FocusStateの定義にもある通り、ValueはHashableである必要がある為、準拠しています。
+    enum Field: Hashable {
+        case add
+    }
+ // @FocusStateを付与した値をnilにするとキーボードが閉じてくれるのでオプショナルにしています。
+    @FocusState private var focusedField: Field?
+    
+    （省略）
+    
+ // 第一引数には@FocusStateの値を渡し、第二引数には今回はどのfocusedFieldを指しているのかを渡しています。
+     .focused($focusedField, equals: .add)
+     .onTapGesture {
+         focusedField = .add
+     }
+     
+     （省略）
+     
+ } // VSTACKここまで
+     // 範囲内ならタップでできるようになっている
+     .contentShape(RoundedRectangle(cornerRadius: 10))
+     // タップした時の処理
+     .onTapGesture {
+         focusedField = nil
+     } // onTapGesture
+```
+# 苦労したポイント
+- EditViewへの行データ渡し
+- ViewModelへDelete機能分割
+- 追加ボタンの書き方
 
 # 実行手順
  ## 1, プロジェクトを立ち上げる
