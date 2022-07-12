@@ -11,12 +11,16 @@ CoreDataを初めて利用したので忘備録的にコメントを残してい
 
 # フロー図
 ```mermaid
-flowchart LR
-    subgraph Data Binding
-    id1(View) -- Owns --> id2(ViewModel) -. Update .-> id1
-    end
-    id2 -- Owns -->  id3(CoreData) -. Update .-> id2
-  
+graph LR;
+  MemoListView--追加-->MemoAddView;
+  MemoListView--変更-->MemoEditView;
+  MemoAddView--登録-->AddViewModel;
+  MemoEditView--登録-->EditViewModel;
+  MemoListView--削除-->DeleteViewModel;
+  AddViewModel-->CoreData;
+  EditViewModel-->CoreData;
+  DeleteViewModel-->CoreData;
+  CoreData--Viewを更新-->MemoListView
 ```
 
 
