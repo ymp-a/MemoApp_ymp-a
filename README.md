@@ -28,16 +28,19 @@ graph LR;
 
 https://user-images.githubusercontent.com/68992872/177164576-71d115fe-1f00-4832-9c60-e797d22db580.mov
 
-# 機能・特徴・推しポイント
+# 機能
 - シンプルなメモアプリ
-- CoreDataを利用してアプリを終了してもデータは端末に残ります
 - メモは左スワイプで簡単に削除
 - メモ内容をタップで編集
 - ダークモードに対応
+
+# 特徴
+- CoreDataを利用してアプリを終了してもデータは端末に残ります
 - SwiftLint導入
 - extensionで背景色管理
+https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/ac8c089c599e11f5c19e83e24ce2e9385d9da85d/MemoApp/Model/ColorExtension.swift#L11-L28
 
-## 推しポイント
+# キーボード外をタップで簡単ポップダウン機能
 @FocusStateで入力フィールド外のタップを検出してキーボードを収納します。
 
 focusedFieldの値があるならキーボードをポップアップ、nilならキーボードをポップダウン。
