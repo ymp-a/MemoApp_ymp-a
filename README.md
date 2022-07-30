@@ -37,6 +37,7 @@ https://user-images.githubusercontent.com/68992872/177164576-71d115fe-1f00-4832-
 # 特徴
 - CoreDataを利用してアプリを終了してもデータは端末に残ります
 - SwiftLint導入
+https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/.swiftlint.yml#L1-L14
 - extensionで背景色管理
 https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/ac8c089c599e11f5c19e83e24ce2e9385d9da85d/MemoApp/Model/ColorExtension.swift#L11-L28
 
@@ -74,9 +75,64 @@ focusedFieldの値があるならキーボードをポップアップ、nilな�
 ```
 # 苦労したポイント
 - EditViewへの行データ渡し
-- ViewModelへDelete機能分割
-- 追加ボタンの書き方
 
+●MemoListsView.swiftより抜粋
+```swift
+struct MemoListsView: View {
+          (省略)
+ 　　　　　　// タップした行の情報を渡す
+    private var editMemo: Memo?
+          (省略)
+                        // 取得したデータをリスト表示
+                        List {
+                            ForEach(memos) { memo in
+                                // 行毎に編集Viewとmemo情報を生成している
+                                NavigationLink(destination: MemoEditView(editMemo: memo)) {
+                                    HStack {
+                                        // 一部のテキスト装飾は+で繋げればよい
+                                        Text("\(memo.context!)")
+                                            .fontWeight(.bold)
+                                            .font(.title)
+                                            + Text("\n\(memo.date!, formatter: memoFormatter)")
+                                            .fontWeight(.bold)
+                                        Spacer()
+                                    } // HStackここまで
+                                    //　checkedフラグを変更する
+                                    .contentShape(Rectangle())
+                                } // NavigationLinkここまで
+                            } // ForEachここまで
+```
+●MemoEditView.swiftより抜粋
+```swift
+struct MemoEditView: View {
+          (省略)
+    // 行データを受信する
+    private var editMemo: Memo?
+          (省略)
+    init(editMemo: Memo?) {
+        // TextEditorの背景色を設定するため
+        UITextView.appearance().backgroundColor = .clear
+        // 1行のデータをnilチェック
+        if let editMemo = editMemo {
+            //　self.editMemoが21行目のeditMemoのこと、初期化後に代入している
+            self.editMemo = editMemo
+            // メモ内容をアンラップして代入
+            self._context = State(initialValue: editMemo.context!)
+            // 時間をアンラップして代入
+            self._editDate = State(initialValue: editMemo.date!)
+
+        } else {
+            // プレビュー用
+            self._context = State(initialValue: "testmemo")
+            self._editDate = State(initialValue: Date())
+        }
+    } // initここまで          
+```
+- ViewModelへDelete機能分割
+https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/View/MemoListsView.swift#L66-L71
+https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/ViewModel/DeleteViewModel.swift#L11-L27
+- 追加ボタンの書き方
+https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/View/MemoListsView.swift#L77-L99
 # 実行手順
  ## 1, プロジェクトを立ち上げる
  ```
