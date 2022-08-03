@@ -76,6 +76,17 @@ focusedFieldの値があるならキーボードをポップアップ、nilな�
 # 苦労したポイント
 - EditViewへの行データ渡し
 
+  -- 実現したいこと
+    -> MemoListViewの行データをEditVewへ渡したい
+
+  -- 発生した問題点
+    -> EditViewでの初期化が失敗する
+
+  -- 解決、理解したこと
+    -> 初期化方法    
+  
+参考：[カピ通信【SwiftUI】@Stateの使い方](https://capibara1969.com/1608/)
+
 ●MemoListsView.swiftより抜粋
 ```swift
 struct MemoListsView: View {
@@ -129,9 +140,32 @@ struct MemoEditView: View {
     } // initここまで          
 ```
 - ViewModelへDelete機能分割
+
+  -- 実現したいこと
+    -> DeleteViewModelに削除機能を移行したい
+
+  -- 発生した問題点
+    -> MemoListViewからDeleteViewModelへパラメータを渡せない
+
+  -- 解決、理解したこと
+    -> IndexSetを使用した要素取得方法
+    
+参考：後ほど追記[]()
+
 https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/View/MemoListsView.swift#L66-L71
 https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/ViewModel/DeleteViewModel.swift#L11-L27
+
 - 追加ボタンの書き方
+
+  -- 実現したいこと
+    -> MemoListViewへ追加ボタンを実装したい
+
+  -- 発生した問題点
+    -> ボタン配置がレイアウトによって可変してしまう
+
+  -- 解決、理解したこと
+    -> ZStack,VStackを利用してシンプルに実装する方法
+    
 https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/View/MemoListsView.swift#L77-L99
 # 実行手順
  ## 1, プロジェクトを立ち上げる
