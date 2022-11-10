@@ -37,9 +37,9 @@ https://user-images.githubusercontent.com/68992872/177164576-71d115fe-1f00-4832-
 # 特徴
 - CoreDataを利用してアプリを終了してもデータは端末に残ります
 - SwiftLint導入
-https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/.swiftlint.yml#L1-L14
+https://github.com/ymp-a/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/.swiftlint.yml#L1-L14
 - extensionで背景色管理
-https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/ac8c089c599e11f5c19e83e24ce2e9385d9da85d/MemoApp/Model/ColorExtension.swift#L11-L28
+https://github.com/ymp-a/MemoApp_ymp-a/blob/ac8c089c599e11f5c19e83e24ce2e9385d9da85d/MemoApp/Model/ColorExtension.swift#L11-L28
 
 # キーボード外をタップで簡単ポップダウン機能
 @FocusStateで入力フィールド外のタップを検出してキーボードを収納します。
@@ -141,32 +141,32 @@ struct MemoEditView: View {
 ```
 - ViewModelへDelete機能分割
 
-  -- 実現したいこと
+  - 実現したいこと
     -> DeleteViewModelに削除機能を移行したい
 
-  -- 発生した問題点
+  - 発生した問題点
     -> MemoListViewからDeleteViewModelへパラメータを渡せない
 
-  -- 解決、理解したこと
+  - 解決、理解したこと
     -> IndexSetを使用した要素取得方法
     
 参考：後ほど追記[]()
 
-https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/View/MemoListsView.swift#L66-L71
-https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/ViewModel/DeleteViewModel.swift#L11-L27
+https://github.com/ymp-a/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/View/MemoListsView.swift#L66-L71
+https://github.com/ymp-a/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/ViewModel/DeleteViewModel.swift#L11-L27
 
 - 追加ボタンの書き方
 
-  -- 実現したいこと
+  - 実現したいこと
     -> MemoListViewへ追加ボタンを実装したい
 
-  -- 発生した問題点
+  - 発生した問題点
     -> ボタン配置がレイアウトによって可変してしまう
 
-  -- 解決、理解したこと
+  - 解決、理解したこと
     -> ZStack,VStackを利用してシンプルに実装する方法
     
-https://github.com/CodeCandySchool/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/View/MemoListsView.swift#L77-L99
+https://github.com/ymp-a/MemoApp_ymp-a/blob/7f8c2bcfef5463453bae9eddcd4ef24a267c7e78/MemoApp/View/MemoListsView.swift#L77-L99
 # 実行手順
  ## 1, プロジェクトを立ち上げる
  ```
